@@ -128,7 +128,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.5656854
+    - _Smoothness: 1.421
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -136,6 +136,7 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _Use_Decal: 0
+    - _Use_Decal_Texture: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
