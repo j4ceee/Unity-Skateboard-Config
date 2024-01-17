@@ -196,7 +196,7 @@ public class UIManager : MonoBehaviour
 
     private List<TagDisplayNames> _currentOptions = new List<TagDisplayNames>(); // keep track of current options
 
-    private TMP_Dropdown _materialDropdown;
+    private TMP_Dropdown _materialDropdown; // store dropdown component of dropdownObject
     private TextMeshProUGUI _labelText;
 
     public void ShowMaterialEditorWindow(bool show)
@@ -216,9 +216,9 @@ public class UIManager : MonoBehaviour
     public void PopulateMaterialDropdown(string selectedPrefabTag)
     {
         // if there are any dropdown options, destroy them before adding new ones
-        _currentOptions.Clear();
-        _materialDropdown.ClearOptions();
-        _materialDropdown.options.Insert(0, new TMP_Dropdown.OptionData("None"));
+        _currentOptions.Clear(); // clear current options
+        _materialDropdown.ClearOptions(); // clear dropdown options
+        _materialDropdown.options.Insert(0, new TMP_Dropdown.OptionData("None")); // add placeholder option
         _materialDropdown.value = 0; // Set the dropdown to show the placeholder by default
         if (_labelText != null)
         {
@@ -262,6 +262,29 @@ public class UIManager : MonoBehaviour
 
         var selectedTag = _currentOptions[index - 1].modelTag; // get tag of selected option, -1 because placeholder is at index 0
 
+        // Clear listeners for all toggle components in of all toggle buttons in _currentMatButtons and _currentDecButtons
+        // + delete all buttons in _currentMatButtons and _currentDecButtons
+        foreach (var button in _currentMatButtons)
+        {
+            Toggle toggleComponent = button.GetComponent<Toggle>();
+            if (toggleComponent != null)
+            {
+                toggleComponent.onValueChanged.RemoveAllListeners();
+                Destroy(button);
+            }
+        }
+        _currentMatButtons?.Clear();
+        foreach (var button in _currentDecButtons)
+        {
+            Toggle toggleComponent = button.GetComponent<Toggle>();
+            if (toggleComponent != null)
+            {
+                toggleComponent.onValueChanged.RemoveAllListeners();
+                Destroy(button);
+            }
+        }
+        _currentDecButtons?.Clear();
+
         PopulateMaterialPicker(selectedTag); // populate material picker with materials of selected tag
         PopulateDecalPicker(selectedTag); // populate decal picker with decals of selected tag
 
@@ -291,15 +314,6 @@ public class UIManager : MonoBehaviour
 
     private void PopulateMaterialPicker(string selectedPartTag) // populate the material picker with the materials of the selected tag
     {
-        if (_currentMatButtons != null) // if there are any material buttons, destroy them before adding new ones
-        {
-            foreach (var button in _currentMatButtons)
-            {
-                Destroy(button);
-            }
-        }
-        _currentMatButtons?.Clear();
-
         _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, selectedPartTag)); // get materials from MaterialSwitcher script & store them in a new list
 
         if (_availableMaterials != null)
@@ -411,16 +425,6 @@ public class UIManager : MonoBehaviour
 
     private void PopulateDecalPicker(string selectedPartTag) // populate the decal picker with the decals of the selected tag
     {
-        if (_currentDecButtons != null) // if there are any material buttons, destroy them before adding new ones
-        {
-            foreach (var button in _currentDecButtons)
-            {
-                Destroy(button);
-            }
-        }
-
-        _currentDecButtons?.Clear();
-
         // Create none decal button
         GameObject noneDecalButton = Instantiate(noneSelectedButtonPrefab, decalButtonsContainer.transform); // create new button from toggle prefab
         noneDecalButton.GetComponent<Toggle>().group = decalButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of decalButtonsContainer
@@ -454,6 +458,7 @@ public class UIManager : MonoBehaviour
                 {
                     toggleComponent.group = decalButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of decalButtonsContainer
                     var i1 = i;
+                    toggleComponent.onValueChanged.RemoveAllListeners();
                     toggleComponent.onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, selectedPartTag, i1, isOn));
                     // execute this function when toggle is clicked
 
@@ -506,6 +511,7 @@ public class UIManager : MonoBehaviour
         if (isOn)
         {
             materialSwitcher.ChangeDecal(prefabTag, partTag, decalIndex); // change decal texture of selected model part
+            Debug.Log("Decal button of model part " + partTag + " clicked");
         }
     }
 

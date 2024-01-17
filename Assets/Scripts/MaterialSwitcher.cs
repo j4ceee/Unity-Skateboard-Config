@@ -40,16 +40,28 @@ public class MaterialSwitcher : MonoBehaviour
     public UIManager uiManager;
 
     // Materials & Decals Lists for Default Wheels
-    [Tooltip("Put all materials for the default wheels here. First must be the default material, others must be material variants. Supported: 8")]
+    [Tooltip("Put all materials for the default wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelDefaultMaterials = new List<MaterialPairList>(); // get all materials for default wheels
     [Tooltip("Put all decal textures for the default wheels here in the same order as for longboard wheels.")]
     public List<TexturePairList> wheelDefaultDecals = new List<TexturePairList>(); // get all decals for default wheels
 
     // Materials & Decals Lists for Longboard Wheels
-    [Tooltip("Put all materials for the longboard wheels here. First must be the default material, others must be material variants. Supported: 8")]
+    [Tooltip("Put all materials for the longboard wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelLongMaterials = new List<MaterialPairList>(); // get all materials for longboard wheels
     [Tooltip("Put all decal textures for the longboard wheels here in the same order as for default wheels.")]
     public List<TexturePairList> wheelLongDecals = new List<TexturePairList>(); // get all decals for longboard wheels
+
+    // Materials & Decals Lists for Default Bearings
+    [Tooltip("Put all materials for the default bearings here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> bearingDefaultMaterials = new List<MaterialPairList>(); // get all materials for default bearings
+    [Tooltip("Put all decal textures for the default bearings here in the same order as for longboard bearings.")]
+    public List<TexturePairList> bearingDefaultDecals = new List<TexturePairList>(); // get all decals for default bearings
+
+    // Materials & Decals Lists for Longboard Bearings
+    [Tooltip("Put all materials for the longboard bearings here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> bearingLongMaterials = new List<MaterialPairList>(); // get all materials for longboard bearings
+    [Tooltip("Put all decal textures for the longboard bearings here in the same order as for default bearings.")]
+    public List<TexturePairList> bearingLongDecals = new List<TexturePairList>(); // get all decals for longboard bearings
 
     private readonly List<TagDisplayNames> _wheelTags = new List<TagDisplayNames>(); // list of wheel tags and their corresponding UI names
     private readonly List<TagDisplayNames> _deckDefTags = new List<TagDisplayNames>(); // list of deck tags and their corresponding UI names
@@ -78,7 +90,7 @@ public class MaterialSwitcher : MonoBehaviour
     private void Start()
     {
         _wheelTags.Add(new TagDisplayNames { modelTag = AxleMain, uiName = "Axle" });
-        _wheelTags.Add(new TagDisplayNames { modelTag = AxleBase, uiName = "Axle Base" });
+        // _wheelTags.Add(new TagDisplayNames { modelTag = AxleBase, uiName = "Axle Base" });
         _wheelTags.Add(new TagDisplayNames { modelTag = BearingCap, uiName = "Bearings" });
         _wheelTags.Add(new TagDisplayNames { modelTag = Wheel, uiName = "Wheels" });
 
@@ -143,7 +155,15 @@ public class MaterialSwitcher : MonoBehaviour
             case AxleMain:
                 return null; // TODO: add axle materials
             case BearingCap:
-                return null; // TODO: add bearing cap materials
+                if (prefabTag == _defWheelTag)
+                {
+                    return bearingDefaultMaterials;
+                }
+                else if (prefabTag == _longWheelTag)
+                {
+                    return bearingLongMaterials;
+                }
+                return null;
             case Wheel:
                 if (prefabTag == _defWheelTag)
                 {
@@ -173,7 +193,9 @@ public class MaterialSwitcher : MonoBehaviour
     private static readonly int UseDecalTexture = Shader.PropertyToID("_Use_Decal_Texture");
     private static readonly int DecalTexture = Shader.PropertyToID("_Decal_Texture");
 
-    public void ChangeMaterial(string prefabTag, string modelTag, int matIndex) // changes the material of the selected model part
+    // when an object has multiple materials, they get stored in an array of materials (Renderer.materials)
+    // we need to know which material to change = objMatIndex
+    public void ChangeMaterial(string prefabTag, string modelTag, int matIndex, int objMatIndex = 0) // changes the material of the selected model part
     {
         var mats = GetMaterials(prefabTag, modelTag);
 
@@ -184,7 +206,14 @@ public class MaterialSwitcher : MonoBehaviour
         // change material of all objects with the same tag
         foreach (var modelPart in editedObjects) // iterate through all objects with the same tag
         {
-            modelPart.GetComponent<Renderer>().material = mats[matIndex].material; // to the new material
+            Renderer modelRenderer = modelPart.GetComponent<Renderer>();
+            Material[] objMaterials = modelRenderer.materials;
+
+            if (objMatIndex >= 0 && objMatIndex < objMaterials.Length && matIndex >= 0 && matIndex < mats.Count)
+            {
+                objMaterials[objMatIndex] = mats[matIndex].material; // change material of selected object to new material
+                modelRenderer.materials = objMaterials; // Reassign the modified materials array
+            }
 
             // set decal to previously selected decal (if any)
             var currDecalIndex = GetCurrentDecal(modelTag);
@@ -229,7 +258,15 @@ public class MaterialSwitcher : MonoBehaviour
             case AxleMain:
                 break; // TODO: add axle materials
             case BearingCap:
-                break; // TODO: add bearing cap materials
+                if (prefabTag == _defWheelTag)
+                {
+                    decalList = bearingDefaultDecals;
+                }
+                else if (prefabTag == _longWheelTag)
+                {
+                    decalList = bearingLongDecals;
+                }
+                break;
             case Wheel:
                 if (prefabTag == _defWheelTag)
                 {
@@ -258,7 +295,7 @@ public class MaterialSwitcher : MonoBehaviour
     private readonly List<CurrentSelection> _currentDecals = new List<CurrentSelection>();
 
 
-    public void ChangeDecal(string prefabTag, string modelTag, int decalIndex) // changes the material of the selected model part
+    public void ChangeDecal(string prefabTag, string modelTag, int decalIndex, int objMatIndex = 0) // changes the material of the selected model part
     {
         var currDecalList = GetDecals(prefabTag, modelTag);
 
@@ -269,11 +306,18 @@ public class MaterialSwitcher : MonoBehaviour
         // change decal of all objects with the same tag
         foreach (var modelPart in editedObjects)
         {
-            if (decalIndex != 999 && decalIndex < currDecalList.Count && currDecalList[decalIndex].texture)
+            if (decalIndex != 999 && decalIndex >= 0 && decalIndex < currDecalList.Count && currDecalList[decalIndex].texture)
             {
-                modelPart.GetComponent<Renderer>().material.SetFloat(UseDecalTexture, 1f); // set bool UseDecalTexture to true
+                Renderer modelRenderer = modelPart.GetComponent<Renderer>();
+                Material[] objMaterials = modelRenderer.materials;
 
-                modelPart.GetComponent<Renderer>().material.SetTexture(DecalTexture, currDecalList[decalIndex].texture); // to the new decal texture
+                if (objMatIndex >= 0 && objMatIndex < objMaterials.Length)
+                {
+                    objMaterials[objMatIndex].SetFloat(UseDecalTexture, 1f); // set bool UseDecalTexture to true
+
+                    objMaterials[objMatIndex].SetTexture(DecalTexture, currDecalList[decalIndex].texture); // to the new decal texture
+                    Debug.Log("Set decal " + currDecalList[decalIndex].uiName + " for " + modelTag);
+                }
 
                 // save current decal
                 foreach (var texturePair in _currentDecals) // check if decal is already in list
@@ -309,6 +353,7 @@ public class MaterialSwitcher : MonoBehaviour
         {
             if (decalPair.partTag == partTag)
             {
+                // Debug.Log("Found decal " + decalPair.matTexIndex + " for " + partTag);
                 return decalPair.matTexIndex;
             }
         }

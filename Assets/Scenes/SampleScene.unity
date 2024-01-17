@@ -195,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10232085}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0498137, y: -4.762642e-31, z: 7.908886e-33, w: 0.99875855}
+  m_LocalRotation: {x: 0.0498137, y: -1e-45, z: -0, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1321,12 +1321,12 @@ MonoBehaviour:
   m_BindingMode: 5
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 0.3657615
-    m_Radius: 0.4103666
-  - m_Height: 0.0713681
-    m_Radius: 0.6244708
+  - m_Height: 0.3901961
+    m_Radius: 0.4377811
+  - m_Height: 0.07613584
+    m_Radius: 0.6661885
   - m_Height: 0
-    m_Radius: 0.3568405
+    m_Radius: 0.3806792
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 2005097878}
@@ -1341,7 +1341,7 @@ Transform:
   m_GameObject: {fileID: 141680356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.27904102, y: -0.091408014, z: -0.024002165}
+  m_LocalPosition: {x: 0.31610265, y: -0.08664027, z: -0.04315412}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.02722185, z: -0.2722185}
+  m_FollowOffset: {x: 0, y: 0.03173104, z: -0.3173104}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -2316,8 +2316,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.033051398, y: -0.5196657, z: 0.02012398, w: 0.853493}
-  m_LocalPosition: {x: 0.554775, y: 0.114368096, z: -0.28668532}
+  m_LocalRotation: {x: 0.033051405, y: -0.5196657, z: 0.020123987, w: 0.853493}
+  m_LocalPosition: {x: 0.59183663, y: 0.11913584, z: -0.30583727}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2647,7 +2647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353947786}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.031638555, y: 0.000000017287784, z: -5.472345e-10, w: 0.9994994}
+  m_LocalRotation: {x: 0.031638555, y: 0.000000017709233, z: -5.6057514e-10, w: 0.9994994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3283,12 +3283,12 @@ MonoBehaviour:
   m_BindingMode: 4
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 0.05444369
-    m_Radius: 0.2359227
-  - m_Height: 0.02722185
-    m_Radius: 0.2722185
+  - m_Height: 0.06346208
+    m_Radius: 0.2750024
+  - m_Height: 0.03173104
+    m_Radius: 0.3173104
   - m_Height: 0
-    m_Radius: 0.2268487
+    m_Radius: 0.2644252
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 10232086}
@@ -3303,7 +3303,7 @@ Transform:
   m_GameObject: {fileID: 419445366}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27573398, y: -0.15455426, z: -0.18694532}
+  m_LocalPosition: {x: -0.27573398, y: -0.15004507, z: -0.23203725}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3428,7 +3428,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452967482}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.033051394, y: -0.51966566, z: 0.020123981, w: 0.853493}
+  m_LocalRotation: {x: 0.0330514, y: -0.51966566, z: 0.020123987, w: 0.853493}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3510,7 +3510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.02722185, z: -0.2722185}
+  m_FollowOffset: {x: 0, y: 0.03173104, z: -0.3173104}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -3719,7 +3719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.0713681, z: -0.6244708}
+  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -5347,7 +5347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055177783}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013500974, y: 3.295258e-10, z: -4.4493237e-12, w: 0.99990886}
+  m_LocalRotation: {x: 0.0135009745, y: 0.000000017312743, z: -2.3376026e-10, w: 0.99990886}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6131,7 +6131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.02722185, z: -0.2722185}
+  m_FollowOffset: {x: 0, y: 0.03173104, z: -0.3173104}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -6792,7 +6792,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.0713681, z: -0.6244708}
+  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -6934,6 +6934,9 @@ MonoBehaviour:
   - uiName: Moons
     texture: {fileID: 2800000, guid: cb55fa2271ee66141bfc13cb8d379b52, type: 3}
     uiSprite: {fileID: -997958849, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Cedric & Julian
+    texture: {fileID: 2800000, guid: 40a937797f0afd344b3b4a1bcba193af, type: 3}
+    uiSprite: {fileID: 272780592, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
   wheelLongMaterials:
   - uiName: Green
     material: {fileID: 2100000, guid: fab7854a2d21f4b47bbe433d005ebd9d, type: 2}
@@ -6977,6 +6980,101 @@ MonoBehaviour:
   - uiName: Moons
     texture: {fileID: 2800000, guid: 2634e45c8a9c8cd4890672eb7fb5e1c1, type: 3}
     uiSprite: {fileID: -997958849, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Cedric & Julian
+    texture: {fileID: 2800000, guid: 8b380411fb0188d469745b29a8747aa5, type: 3}
+    uiSprite: {fileID: 272780592, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  bearingDefaultMaterials:
+  - uiName: Red
+    material: {fileID: 2100000, guid: 96206ea6ea87fff41b3df849216c659a, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.87843144, g: 0.13333334, b: 0.22352943, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 03af1558b5cfb29479f2c1bc713314a9, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.09019608, g: 0.09019608, b: 0.09019608, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 53eb949a9218f6644afcc40134114c5e, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.1137255, g: 0.5529412, b: 0.81568635, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: e726efa1969ef09459cf3b7d03ef4f99, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.52156866, g: 0.7372549, b: 0.34509805, a: 1}
+  - uiName: Orange
+    material: {fileID: 2100000, guid: f24f20c31b8cdbb4eb3eb96cb3f34874, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.95294124, g: 0.4666667, b: 0.10980393, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: c724b1895a01f1345b168142e4bfe6d3, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.45098042, g: 0.30588236, b: 0.5568628, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: daaac8d1d597e914eba35af989c257fb, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: 0206521d213d3524d9df2b900d225862, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.9490197, g: 0.82745105, b: 0.2392157, a: 1}
+  bearingDefaultDecals:
+  - uiName: Bombs
+    texture: {fileID: 2800000, guid: 451afe6a10c73f6429a831fc45b42fc7, type: 3}
+    uiSprite: {fileID: -727044411, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Moons & Stars
+    texture: {fileID: 2800000, guid: 6ecb070438881c9429bf81414221b17f, type: 3}
+    uiSprite: {fileID: -1504770428, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Moons
+    texture: {fileID: 2800000, guid: 5c7fa50656bbce44db828413fdd45de3, type: 3}
+    uiSprite: {fileID: -997958849, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Cedric & Julian
+    texture: {fileID: 2800000, guid: d9f013276f5d3184d9d0e02297194ca7, type: 3}
+    uiSprite: {fileID: 272780592, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  bearingLongMaterials:
+  - uiName: Red
+    material: {fileID: 2100000, guid: 41803d588ee71df44961f6952367bef5, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.87843144, g: 0.13333334, b: 0.22352943, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 2484d302146ba904fb1b45ea109044ac, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.09019608, g: 0.09019608, b: 0.09019608, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 5dee4a47adb9ad0499777144501fe921, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.1137255, g: 0.5529412, b: 0.81568635, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: a9e0ffed21f6cdb43801a1e8f6f8c5b3, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.52156866, g: 0.7372549, b: 0.34509805, a: 1}
+  - uiName: Orange
+    material: {fileID: 2100000, guid: 8981eb6fea6bd3d4e90d5f3baaee12c6, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.95294124, g: 0.4666667, b: 0.10980393, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: 14e26da2bfa5067439cf822d86a1b8a2, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.45098042, g: 0.30588236, b: 0.5568628, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: 37b21cdad06a8e441b1546e8da0d0f58, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.91372555, g: 0.91372555, b: 0.91372555, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: dca8c29a8ff659346bcd9ea1f89d25f2, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.9490197, g: 0.82745105, b: 0.2392157, a: 1}
+  bearingLongDecals:
+  - uiName: Bombs
+    texture: {fileID: 2800000, guid: 451afe6a10c73f6429a831fc45b42fc7, type: 3}
+    uiSprite: {fileID: -727044411, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Moons & Stars
+    texture: {fileID: 2800000, guid: 6ecb070438881c9429bf81414221b17f, type: 3}
+    uiSprite: {fileID: -1504770428, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Moons
+    texture: {fileID: 2800000, guid: 5c7fa50656bbce44db828413fdd45de3, type: 3}
+    uiSprite: {fileID: -997958849, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Cedric & Julian
+    texture: {fileID: 2800000, guid: d9f013276f5d3184d9d0e02297194ca7, type: 3}
+    uiSprite: {fileID: 272780592, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
 --- !u!1 &1474732570
 GameObject:
   m_ObjectHideFlags: 0
@@ -7825,7 +7923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.0713681, z: -0.6244708}
+  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -9139,8 +9237,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005097877}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.048570536, y: -0.5192136, z: 0.02957311, w: 0.8527506}
-  m_LocalPosition: {x: -0.000000059604645, y: 0, z: 0}
+  m_LocalRotation: {x: 0.048570532, y: -0.5192137, z: 0.029573109, w: 0.85275054}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9598,8 +9696,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129349658}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.03624136, y: -0.5195868, z: -0.02206625, w: 0.85336345}
-  m_LocalPosition: {x: -0.000000059604645, y: 0, z: 0}
+  m_LocalRotation: {x: -0.03286113, y: -0.5196701, z: -0.020008134, w: 0.85350037}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
