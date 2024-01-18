@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class HightlightSelection : MonoBehaviour
 {
@@ -36,7 +37,7 @@ public class HightlightSelection : MonoBehaviour
             {
                 var ray = Camera.main.ScreenPointToRay(Input
                     .mousePosition); // cast ray from main camera to mouse position
-                if (Physics.Raycast(ray, out var hit)) // if raycast hits something
+                if (Physics.Raycast(ray, out var hit) && !EventSystem.current.IsPointerOverGameObject()) // if raycast hits something
                 {
                     var selection = hit.transform; // store hit transform
 
