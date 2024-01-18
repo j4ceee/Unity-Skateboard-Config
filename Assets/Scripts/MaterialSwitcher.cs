@@ -32,6 +32,7 @@ public class CurrentSelection
     public string prefabTag;
     public string partTag;
     public int matTexIndex;
+    public int objMatIndex;
 }
 
 public class MaterialSwitcher : MonoBehaviour
@@ -70,7 +71,7 @@ public class MaterialSwitcher : MonoBehaviour
     private readonly List<TagDisplayNames> _deckOldTags = new List<TagDisplayNames>();
 
     private const string AxleMain = "axle_main";
-    private const string AxleBase = "axle_base";
+    // private const string AxleBase = "axle_base";
     private const string BearingCap = "bearing_cap";
     private const string Wheel = "wheel";
     private const string BoardClassic = "board_classic";
@@ -84,6 +85,8 @@ public class MaterialSwitcher : MonoBehaviour
     private string _longDeckTag;
     private string _roundDeckTag;
     private string _oldDeckTag;
+
+    public const int Error404 = 999;
 
 
     // Start is called before the first frame update
@@ -206,6 +209,8 @@ public class MaterialSwitcher : MonoBehaviour
         // change material of all objects with the same tag
         foreach (var modelPart in editedObjects) // iterate through all objects with the same tag
         {
+            // Debug.Log("Found " + modelTag + " with " + mats.Count + " decals.");
+
             Renderer modelRenderer = modelPart.GetComponent<Renderer>();
             Material[] objMaterials = modelRenderer.materials;
 
@@ -217,32 +222,33 @@ public class MaterialSwitcher : MonoBehaviour
 
             // set decal to previously selected decal (if any)
             var currDecalIndex = GetCurrentDecal(modelTag);
-            ChangeDecal(prefabTag, modelTag, currDecalIndex);
+            ChangeDecal(prefabTag, modelTag, currDecalIndex, objMatIndex);
         }
 
         // save current material
         foreach (var materialPair in _currentMaterials) // check if material is already in list
         {
-            if (prefabTag == materialPair.prefabTag && modelTag == materialPair.partTag) // if model tag and part tag were already assigned a material
+            if (prefabTag == materialPair.prefabTag && modelTag == materialPair.partTag && materialPair.objMatIndex == objMatIndex) // if model tag and part tag were already assigned a material
             {
                 materialPair.matTexIndex = matIndex; // update material to new material
-                return;
+                materialPair.objMatIndex = objMatIndex; // update objMatIndex to new objMatIndex
+                break;
             }
         }
-        _currentMaterials.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = matIndex }); // else add new material to list
+        _currentMaterials.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = matIndex, objMatIndex = objMatIndex}); // else add new material to list
     }
 
     // TODO: add functionality for models with multiple materials
-    public int GetCurrentMaterial(string prefabTag, string partTag)
+    public int GetCurrentMaterial(string prefabTag, string partTag, int objMatIndex = 0)
     {
         foreach (var materialPair in _currentMaterials)
         {
-            if (materialPair.prefabTag == prefabTag && materialPair.partTag == partTag)
+            if (materialPair.prefabTag == prefabTag && materialPair.partTag == partTag && materialPair.objMatIndex == objMatIndex)
             {
                 return materialPair.matTexIndex;
             }
         }
-        return 999; // 999 as error code for no material found
+        return Error404; // Error404 as error code for no material found
     }
 
 
@@ -306,7 +312,8 @@ public class MaterialSwitcher : MonoBehaviour
         // change decal of all objects with the same tag
         foreach (var modelPart in editedObjects)
         {
-            if (decalIndex != 999 && decalIndex >= 0 && decalIndex < currDecalList.Count && currDecalList[decalIndex].texture)
+            // Debug.Log("Found " + modelTag + " with " + currDecalList.Count + " decals.");
+            if (decalIndex != Error404 && decalIndex >= 0 && decalIndex < currDecalList.Count && currDecalList[decalIndex].texture)
             {
                 Renderer modelRenderer = modelPart.GetComponent<Renderer>();
                 Material[] objMaterials = modelRenderer.materials;
@@ -316,47 +323,77 @@ public class MaterialSwitcher : MonoBehaviour
                     objMaterials[objMatIndex].SetFloat(UseDecalTexture, 1f); // set bool UseDecalTexture to true
 
                     objMaterials[objMatIndex].SetTexture(DecalTexture, currDecalList[decalIndex].texture); // to the new decal texture
-                    Debug.Log("Set decal " + currDecalList[decalIndex].uiName + " for " + modelTag);
+                    // Debug.Log("Set decal " + currDecalList[decalIndex].uiName + " for " + modelTag);
                 }
-
-                // save current decal
-                foreach (var texturePair in _currentDecals) // check if decal is already in list
-                {
-                    if (modelTag == texturePair.partTag) // if part tag was already assigned a decal
-                    {
-                        texturePair.matTexIndex = decalIndex; // update decal to new material
-                        return;
-                    }
-                }
-                _currentDecals.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = decalIndex }); // else add new material to list
             }
             else // set decal to none
             {
                 modelPart.GetComponent<Renderer>().material.SetFloat(UseDecalTexture, 0f); // set bool UseDecalTexture to false
-                foreach (var texturePair in _currentDecals) // check if decal is already in list
-                {
-                    if (modelTag == texturePair.partTag) // if part tag was already assigned a decal
-                    {
-                        _currentDecals.Remove(texturePair); // remove decal from list
-                        return;
-                    }
-                }
             }
         }
+        // save current decal
+        foreach (var texturePair in _currentDecals) // check if decal is already in list
+        {
+            if (modelTag == texturePair.partTag && objMatIndex == texturePair.objMatIndex) // if part tag was already assigned a decal
+            {
+                texturePair.matTexIndex = decalIndex; // update decal to new material
+                texturePair.objMatIndex = objMatIndex; // update objMatIndex to new objMatIndex
+                return;
+            }
+        }
+        _currentDecals.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = decalIndex, objMatIndex = objMatIndex}); // else add new material to list
     }
 
 
     // TODO: add functionality for models with multiple materials
-    public int GetCurrentDecal(string partTag)
+    public int GetCurrentDecal(string partTag, int objMatIndex = 0)
     {
         foreach (var decalPair in _currentDecals)
         {
-            if (decalPair.partTag == partTag)
+            if (decalPair.partTag == partTag && decalPair.objMatIndex == objMatIndex)
             {
                 // Debug.Log("Found decal " + decalPair.matTexIndex + " for " + partTag);
                 return decalPair.matTexIndex;
             }
         }
-        return 999; // 999 as error code for no decal found
+        return Error404; // Error404 as error code for no decal found
+    }
+
+
+    // deck materials are all ordered differently on the models (there are 3 unordered materials per model)
+    // the relevant materials start with "01_" and "02_" for Grip and Bottom respectively
+    // MaterialSwitcher returns the tags for the dropdown in UIManager, part of these returns is "partName" which is either "grip" or "deck"
+    // depending on the partName, we need to find the corresponding material index of the material that starts with "01_" or "02_"
+    public int GetDeckMaterialIndex(string prefabTag, string partTag, string partName)
+    {
+        var mats = GetMaterials(prefabTag, partTag);
+        if (mats == null) return Error404; // Error404 as error code for no material found
+
+        var matIndex = Error404; // Error404 as error code for no material found
+
+        if (partName == "grip")
+        {
+            for (var i = 0; i < mats.Count; i++)
+            {
+                if (mats[i].material.name.StartsWith("01_"))
+                {
+                    matIndex = i;
+                    break;
+                }
+            }
+        }
+        else if (partName == "deck")
+        {
+            for (var i = 0; i < mats.Count; i++)
+            {
+                if (mats[i].material.name.StartsWith("02_"))
+                {
+                    matIndex = i;
+                    break;
+                }
+            }
+        }
+
+        return matIndex;
     }
 }

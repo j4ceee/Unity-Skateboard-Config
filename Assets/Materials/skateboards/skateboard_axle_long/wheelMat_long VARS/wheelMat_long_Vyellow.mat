@@ -23,11 +23,16 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _Decal_Texture:
+        m_Texture: {fileID: 2800000, guid: 2634e45c8a9c8cd4890672eb7fb5e1c1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _Base_Colour_Power: 0.4
     - _Base_Colour_Saturation: 2.13
+    - _Use_Decal_Texture: 1
     m_Colors:
     - _Base_Colour: {r: 0.91764706, g: 0.5084196, b: 0.18039212, a: 1}
     - _SSS_Colour: {r: 0.98823535, g: 0.7960785, b: 0.38431376, a: 1}
