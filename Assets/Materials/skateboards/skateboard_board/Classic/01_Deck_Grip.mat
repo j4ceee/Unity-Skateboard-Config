@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Oldschool Deck Top
+  m_Name: 01_Deck_Grip
   m_Shader: {fileID: -6465566751694194690, guid: 762829b6e9b2a4e4c833ca1bc1702618,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Ambient_Occlusion_Map:
-        m_Texture: {fileID: 2800000, guid: 4041186fa94d45641a4dfcab4dd817e2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 088e27dfa07c45b4c87779520906c9fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -34,6 +34,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Decal_Texture:
+        m_Texture: {fileID: 2800000, guid: 82be9b26772983c45b467ecea4ada818, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -61,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 4041186fa94d45641a4dfcab4dd817e2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 088e27dfa07c45b4c87779520906c9fd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
@@ -95,6 +99,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _Decal_Hue: 112
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -103,6 +108,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5656854
     - _GlossyReflections: 1
+    - _Grip_Hue: 0
     - _Hue: 0
     - _Metallic: 0
     - _Mode: 0
@@ -121,19 +127,20 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
+    - _Use_Decal_Texture: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
-    - _Bright_Colour: {r: 0.10196077, g: 0.10588237, b: 0.12156857, a: 1}
-    - _Brightest_Colour: {r: 0.24313727, g: 0.25098038, b: 0.30196077, a: 1}
+    - _Bright_Colour: {r: 0.1019608, g: 0.1058824, b: 0.1215686, a: 1}
+    - _Brightest_Colour: {r: 0.2431373, g: 0.2509804, b: 0.3019608, a: 1}
     - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
-    - _Dark_Colour: {r: 0.043137237, g: 0.0470588, b: 0.050980367, a: 1}
+    - _Dark_Colour: {r: 0.04313726, g: 0.04705882, b: 0.05098039, a: 1}
     - _Darkest_Colour: {r: 0, g: 0, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &942319871976747555
+--- !u!114 &7245353788336862777
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
