@@ -195,7 +195,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10232085}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0498137, y: 4.665474e-24, z: -9.993513e-26, w: 0.99875855}
+  m_LocalRotation: {x: 0.0498137, y: 7.211138e-39, z: 1.90097e-40, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2724,7 +2724,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353947786}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.031638555, y: 0.000000017685315, z: -5.598181e-10, w: 0.9994994}
+  m_LocalRotation: {x: 0.031638555, y: 0.000000017730148, z: -5.612373e-10, w: 0.9994994}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5424,7 +5424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055177783}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013500976, y: 0.000000017400763, z: -2.3494873e-10, w: 0.99990886}
+  m_LocalRotation: {x: 0.013500974, y: -0.000000017395699, z: 2.3488028e-10, w: 0.99990886}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6948,7 +6948,7 @@ Transform:
   m_GameObject: {fileID: 1432269445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.11506787, y: 0.06321262, z: 0.18523917}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7152,6 +7152,214 @@ MonoBehaviour:
   - uiName: Cedric & Julian
     texture: {fileID: 2800000, guid: d9f013276f5d3184d9d0e02297194ca7, type: 3}
     uiSprite: {fileID: 272780592, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  classicDeckGripMaterials:
+  - uiName: Default Grip
+    material: {fileID: 2100000, guid: 43ce3ec48cb4c1241baf3588e0aed21b, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.071422204, g: 0.08033056, b: 0.14150941, a: 1}
+  classicDeckGripDecals: []
+  classicDeckBottomMaterials:
+  - uiName: Default
+    material: {fileID: 2100000, guid: e8ec4bb6f1d063548923fbd0d7e064a0, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.97647065, g: 0.7803922, b: 0.53333336, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 080a275473c66b8419f77f78cfa8231f, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 860540e1f9258e344aa190b8a6a74c75, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.14117648, g: 0.25490198, b: 0.38823533, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: ed61f239b4c148348a954c774b7af5ff, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.28627452, g: 0.454902, b: 0.31764707, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: 8971f04785285684ba84ed0858d82343, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.37647063, g: 0.14901961, b: 0.49803925, a: 1}
+  - uiName: Red
+    material: {fileID: 2100000, guid: dbb46c9c9bc79b34d902a5e92999cdc2, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.93725497, g: 0.19215688, b: 0.14509805, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: 6737a89b434956a41964ccb0e344cfc0, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: 35f8eb7a6e44aff47850823ab1dfb3d1, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.8352942, g: 0.6862745, b: 0.19215688, a: 1}
+  classicDeckBottomDecals:
+  - uiName: Star
+    texture: {fileID: 2800000, guid: d45202fcb6a64a64988ba7e50346771f, type: 3}
+    uiSprite: {fileID: -93407840, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: "Pok\xE9ball"
+    texture: {fileID: 2800000, guid: deea13afddfcd614b8d20687ee2546ff, type: 3}
+    uiSprite: {fileID: -1890751945, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: World Takeover
+    texture: {fileID: 2800000, guid: b5cebf1e1bb073a45b6a5d8d9860a398, type: 3}
+    uiSprite: {fileID: -1824271929, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Mountains
+    texture: {fileID: 2800000, guid: 6657d61f3df14e2458f3d03483eb3bbb, type: 3}
+    uiSprite: {fileID: 1810728573, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  longboardDeckGripMaterials:
+  - uiName: Default Grip
+    material: {fileID: 2100000, guid: 6031f2d68cbf82a4a91fe8b928394c38, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
+  longboardDeckGripDecals: []
+  longboardDeckBottomMaterials:
+  - uiName: Default
+    material: {fileID: 2100000, guid: aab51170ae501604487c2d82c7f3e040, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.97647065, g: 0.7803922, b: 0.53333336, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 760e1de80dbd2144a9ccb88c19dc2c7c, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 6152205a07c820641827c3a9521db59e, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.14117648, g: 0.25490198, b: 0.38823533, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: 27a51accdd7b9e7479fb51edce7e0bb3, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.28627452, g: 0.454902, b: 0.31764707, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: 9ec5cff794b855d41acd7aefcc479d92, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.37647063, g: 0.14901961, b: 0.49803925, a: 1}
+  - uiName: Red
+    material: {fileID: 2100000, guid: d58ad371162d02849be2fd24847b0059, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.93725497, g: 0.19215688, b: 0.14509805, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: 4af20875dc50e7244925e263cdac231e, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: 63b3f70dbb934e944ab68412c814f9f7, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.8352942, g: 0.6862745, b: 0.19215688, a: 1}
+  longboardDeckBottomDecals:
+  - uiName: Star
+    texture: {fileID: 2800000, guid: fd234f544c1aba14f8d79d2ca5d31585, type: 3}
+    uiSprite: {fileID: -93407840, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: "Pok\xE9ball"
+    texture: {fileID: 2800000, guid: fcd575c33c0c4c24aad56cba5fee06a2, type: 3}
+    uiSprite: {fileID: -1890751945, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: World Takeover
+    texture: {fileID: 2800000, guid: afe5db899152cbe4caecea57dc4180d4, type: 3}
+    uiSprite: {fileID: -1824271929, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Mountains
+    texture: {fileID: 2800000, guid: c708ea6cd16f71f4ebde375eba76293c, type: 3}
+    uiSprite: {fileID: 1810728573, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  roundtailDeckGripMaterials:
+  - uiName: Default Grip
+    material: {fileID: 2100000, guid: ce633bd5e628fc74ea96cb6d50265fbd, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
+  roundtailDeckGripDecals: []
+  roundtailDeckBottomMaterials:
+  - uiName: Default
+    material: {fileID: 2100000, guid: 9055cf85778312a4dbab80bc8fc6bf7c, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.97647065, g: 0.7803922, b: 0.53333336, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 5cac43f55d23a9a40a208194297692a0, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 9025a847878d01545b959cbb0101f166, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.14117648, g: 0.25490198, b: 0.38823533, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: d3fa6a93d29b48e429fab474b21ea3c1, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.28627452, g: 0.454902, b: 0.31764707, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: 3f7055deab893f243bd22899a1b7fed3, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.37647063, g: 0.14901961, b: 0.49803925, a: 1}
+  - uiName: Red
+    material: {fileID: 2100000, guid: d6cfa96108e11fb40a639ecbb7a3ab29, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.93725497, g: 0.19215688, b: 0.14509805, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: 3f16e51de628ca248a0979a64cc39ed8, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: 69044027a76a1544fa54766b33c5ee9c, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.8352942, g: 0.6862745, b: 0.19215688, a: 1}
+  roundtailDeckBottomDecals:
+  - uiName: Star
+    texture: {fileID: 2800000, guid: 5a11bf3b500538d4495ca26c3633ebe1, type: 3}
+    uiSprite: {fileID: -93407840, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: "Pok\xE9ball"
+    texture: {fileID: 2800000, guid: 929bc0b4ee94e8d4aad139647fad3aac, type: 3}
+    uiSprite: {fileID: -1890751945, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: World Takeover
+    texture: {fileID: 2800000, guid: 72090cb7dba348346b1e2b2ab484bb5e, type: 3}
+    uiSprite: {fileID: -1824271929, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Mountains
+    texture: {fileID: 2800000, guid: f63b253a2bf947046aef162fdfe34d44, type: 3}
+    uiSprite: {fileID: 1810728573, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  oldschoolDeckGripMaterials:
+  - uiName: Default Grip
+    material: {fileID: 2100000, guid: b87654958cf0d1944adfe441288b4032, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
+  oldschoolDeckGripDecals: []
+  oldschoolDeckBottomMaterials:
+  - uiName: Default
+    material: {fileID: 2100000, guid: 260feacd521e0e147a0a9913a639c94e, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.97647065, g: 0.7803922, b: 0.53333336, a: 1}
+  - uiName: Black
+    material: {fileID: 2100000, guid: 9bc57417271cab141be9f633d8562fe8, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  - uiName: Blue
+    material: {fileID: 2100000, guid: 39a23d9b4bdf3f244bf46daea5147613, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.14117648, g: 0.25490198, b: 0.38823533, a: 1}
+  - uiName: Green
+    material: {fileID: 2100000, guid: 08c1f424b270d71459c6166f7023d6d2, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.28627452, g: 0.454902, b: 0.31764707, a: 1}
+  - uiName: Purple
+    material: {fileID: 2100000, guid: d5b91e13d6cb39a478a4199a07390c6c, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.37647063, g: 0.14901961, b: 0.49803925, a: 1}
+  - uiName: Red
+    material: {fileID: 2100000, guid: 39de689a7c3197445b5dacf690115297, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.93725497, g: 0.19215688, b: 0.14509805, a: 1}
+  - uiName: White
+    material: {fileID: 2100000, guid: 859e99941f6e94b449a46cd07c6488ef, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.85098046, g: 0.85098046, b: 0.85098046, a: 1}
+  - uiName: Yellow
+    material: {fileID: 2100000, guid: a527524a42c02dd4fb063d78b8ad7b84, type: 2}
+    uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
+    uiSpriteColor: {r: 0.8352942, g: 0.6862745, b: 0.19215688, a: 1}
+  oldschoolDeckBottomDecals:
+  - uiName: Star
+    texture: {fileID: 2800000, guid: 0424c0becdbc9f24eb9c603ef2c34e8d, type: 3}
+    uiSprite: {fileID: -93407840, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: "Pok\xE9ball"
+    texture: {fileID: 2800000, guid: 8bd2317c554deb142b1958d709eb5fd6, type: 3}
+    uiSprite: {fileID: -1890751945, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: World Takeover
+    texture: {fileID: 2800000, guid: 39696e0f2900c1d45b8e3ef23bb4a564, type: 3}
+    uiSprite: {fileID: -1824271929, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: Mountains
+    texture: {fileID: 2800000, guid: eb51c784efd48a841988b473ab2a74b2, type: 3}
+    uiSprite: {fileID: 1810728573, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
 --- !u!1 &1474732570
 GameObject:
   m_ObjectHideFlags: 0

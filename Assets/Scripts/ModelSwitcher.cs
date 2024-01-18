@@ -64,6 +64,7 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 
 	// TODO: Share wheel tags between all scripts
 	private static readonly string[] WheelTags = new string[] { "axle_main", "axle_base", "bearing_cap", "wheel" };	// array of wheel tags
+	private static readonly string[] DeckTags = new string[] { "board_classic", "board_long", "board_round", "board_old"};	// array of wheel tags
 	private const string WheelDef = "wheel_def";
 	private const string WheelLong = "wheel_long";
 	private const string DeckDef = "deck_def";
@@ -125,33 +126,8 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 			reflectionProbe.RenderProbe();
 		}
 
-		// update material of wheels (and bearings) to match the selected material (if a material has already been selected)
-		foreach (var wheelTag in WheelTags) // iterate through each wheel tag
-		{
-			// for every wheel tag, check if a material has already been selected
-			var materialIndex = materialSwitcher.GetCurrentMaterial(_currentLoadedWheels[0].tag, wheelTag); // update material of wheels (and bearings) to match the selected wheels
-			if (materialIndex != 999) // if a material has already been selected
-			{
-				materialSwitcher.ChangeMaterial(_currentLoadedWheels[0].tag, wheelTag, materialIndex); // update material of wheels (and bearings) to match the selected wheels
-			}
-
-			var decalIndex = materialSwitcher.GetCurrentDecal(wheelTag); // update decal of wheels (and bearings) to match the selected wheels
-			if (decalIndex != 999) // if a decal has already been selected
-			{
-				StartCoroutine(ApplyDecalsAfterDelay(_currentLoadedWheels[0].tag, wheelTag, decalIndex)); // decals need to be applied after a delay, otherwise they won't show up (materials are instantiated immediately, but not decals)
-				//materialSwitcher.ChangeDecal(_currentLoadedWheels[0].tag, wheelTag, decalIndex); // update decal of wheels (and bearings) to match the selected wheels
-			}
-		}
+		LoadMaterial(_currentLoadedWheels[0].tag, WheelTags);
 	}
-
-	// TODO: find a better way to apply decals after a delay
-	IEnumerator ApplyDecalsAfterDelay(string prefabTag, string modelTag, int decalIndex)
-	{
-		yield return new WaitForEndOfFrame();
-		//yield return new WaitForSeconds(10f);
-		materialSwitcher.ChangeDecal(prefabTag, modelTag, decalIndex);
-	}
-
 
 	public void SetDeck(string deckType)
 	{
@@ -208,7 +184,7 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 			reflectionProbe.RenderProbe();
 		}
 
-		//TODO: update material of deck to match the selected material (if a material has already been selected)
+		LoadMaterial(_currentLoadedDeck.tag, DeckTags);
 	}
 
 	private void UpdateWheelAnchors() {
@@ -290,5 +266,48 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 		{
 			wheel.GetComponent<Outline>().enabled = enable;
 		}
+	}
+
+	private void LoadMaterial(string currentPrefabTag, string[] currentModelTags)
+	{
+		if (currentPrefabTag == null) return;
+
+		var modelPartOptions = materialSwitcher.GiveModelPartsOptions(currentPrefabTag); // get model part options for wheels
+
+		if (modelPartOptions == null) return;
+
+		// update material of wheels (and bearings) to match the selected material (if a material has already been selected)
+		foreach (var modelTag in currentModelTags) // iterate through each wheel tag
+		{
+			int objMatIndex = 0;
+			foreach (var modelPart in modelPartOptions)
+			{
+				if (modelTag == modelPart.modelTag)
+				{
+					objMatIndex = modelPart.partMatIndex;
+				}
+			}
+			// for every wheel tag, check if a material has already been selected
+			var materialIndex = materialSwitcher.GetCurrentMaterial(currentPrefabTag, modelTag, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
+			if (materialIndex != 999) // if a material has already been selected
+			{
+				materialSwitcher.ChangeMaterial(currentPrefabTag, modelTag, materialIndex, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
+			}
+
+			var decalIndex = materialSwitcher.GetCurrentDecal(modelTag, objMatIndex); // update decal of wheels (and bearings) to match the selected wheels
+			if (decalIndex != 999) // if a decal has already been selected
+			{
+				StartCoroutine(ApplyDecalsAfterDelay(currentPrefabTag, modelTag, decalIndex, objMatIndex)); // decals need to be applied after a delay, otherwise they won't show up (materials are instantiated immediately, but not decals)
+				//materialSwitcher.ChangeDecal(_currentLoadedWheels[0].tag, wheelTag, decalIndex); // update decal of wheels (and bearings) to match the selected wheels
+			}
+		}
+	}
+
+	// TODO: find a better way to apply decals after a delay
+	IEnumerator ApplyDecalsAfterDelay(string prefabTag, string modelTag, int decalIndex, int objMatIndex)
+	{
+		yield return new WaitForEndOfFrame();
+		//yield return new WaitForSeconds(10f);
+		materialSwitcher.ChangeDecal(prefabTag, modelTag, decalIndex, objMatIndex);
 	}
 }

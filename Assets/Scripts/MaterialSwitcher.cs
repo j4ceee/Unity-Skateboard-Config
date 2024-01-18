@@ -22,7 +22,7 @@ public class TexturePairList
 public class TagDisplayNames
 {
     public string modelTag;
-    public string partName;
+    public int partMatIndex;
     public string uiName;
 }
 
@@ -40,29 +40,73 @@ public class MaterialSwitcher : MonoBehaviour
     public ModelSwitcher modelSwitcher;
     public UIManager uiManager;
 
-    // Materials & Decals Lists for Default Wheels
+    // Materials & Decals Lists for Default Wheels--------------------------------------------------
     [Tooltip("Put all materials for the default wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelDefaultMaterials = new List<MaterialPairList>(); // get all materials for default wheels
     [Tooltip("Put all decal textures for the default wheels here in the same order as for longboard wheels.")]
     public List<TexturePairList> wheelDefaultDecals = new List<TexturePairList>(); // get all decals for default wheels
 
-    // Materials & Decals Lists for Longboard Wheels
+    // Materials & Decals Lists for Longboard Wheels-------------------------------------------------
     [Tooltip("Put all materials for the longboard wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelLongMaterials = new List<MaterialPairList>(); // get all materials for longboard wheels
     [Tooltip("Put all decal textures for the longboard wheels here in the same order as for default wheels.")]
     public List<TexturePairList> wheelLongDecals = new List<TexturePairList>(); // get all decals for longboard wheels
 
-    // Materials & Decals Lists for Default Bearings
+    // Materials & Decals Lists for Default Bearings-------------------------------------------------
     [Tooltip("Put all materials for the default bearings here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> bearingDefaultMaterials = new List<MaterialPairList>(); // get all materials for default bearings
     [Tooltip("Put all decal textures for the default bearings here in the same order as for longboard bearings.")]
     public List<TexturePairList> bearingDefaultDecals = new List<TexturePairList>(); // get all decals for default bearings
 
-    // Materials & Decals Lists for Longboard Bearings
+    // Materials & Decals Lists for Longboard Bearings-----------------------------------------------
     [Tooltip("Put all materials for the longboard bearings here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> bearingLongMaterials = new List<MaterialPairList>(); // get all materials for longboard bearings
     [Tooltip("Put all decal textures for the longboard bearings here in the same order as for default bearings.")]
     public List<TexturePairList> bearingLongDecals = new List<TexturePairList>(); // get all decals for longboard bearings
+
+    // Materials & Decals Lists for Classic Deck----------------------------------------------------
+    [Tooltip("Put all materials for the classic deck grip here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> classicDeckGripMaterials = new List<MaterialPairList>(); // get all materials for classic deck
+    [Tooltip("Put all decal textures for the classic deck grip here in the same order as for others decks.")]
+    public List<TexturePairList> classicDeckGripDecals = new List<TexturePairList>(); // get all decals for classic deck
+
+    [Tooltip("Put all materials for the classic deck bottom here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> classicDeckBottomMaterials = new List<MaterialPairList>(); // get all materials for classic deck
+    [Tooltip("Put all decal textures for the classic deck bottom here in the same order as for others decks.")]
+    public List<TexturePairList> classicDeckBottomDecals = new List<TexturePairList>(); // get all decals for classic deck
+
+    // Materials & Decals Lists for Longboard Deck----------------------------------------------------
+    [Tooltip("Put all materials for the longboard deck grip here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> longboardDeckGripMaterials = new List<MaterialPairList>(); // get all materials for longboard deck
+    [Tooltip("Put all decal textures for the longboard deck grip here in the same order as for others decks.")]
+    public List<TexturePairList> longboardDeckGripDecals = new List<TexturePairList>(); // get all decals for longboard deck
+
+    [Tooltip("Put all materials for the longboard deck bottom here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> longboardDeckBottomMaterials = new List<MaterialPairList>(); // get all materials for longboard deck
+    [Tooltip("Put all decal textures for the longboard deck bottom here in the same order as for others decks.")]
+    public List<TexturePairList> longboardDeckBottomDecals = new List<TexturePairList>(); // get all decals for longboard deck
+
+    // Materials & Decals Lists for Roundtail Deck----------------------------------------------------
+    [Tooltip("Put all materials for the roundtail deck grip here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> roundtailDeckGripMaterials = new List<MaterialPairList>(); // get all materials for roundtail deck
+    [Tooltip("Put all decal textures for the roundtail deck grip here in the same order as for others decks.")]
+    public List<TexturePairList> roundtailDeckGripDecals = new List<TexturePairList>(); // get all decals for roundtail deck
+
+    [Tooltip("Put all materials for the roundtail deck bottom here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> roundtailDeckBottomMaterials = new List<MaterialPairList>(); // get all materials for roundtail deck
+    [Tooltip("Put all decal textures for the roundtail deck bottom here in the same order as for others decks.")]
+    public List<TexturePairList> roundtailDeckBottomDecals = new List<TexturePairList>(); // get all decals for roundtail deck
+
+    // Materials & Decals Lists for Oldschool Deck----------------------------------------------------
+    [Tooltip("Put all materials for the oldschool deck grip here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> oldschoolDeckGripMaterials = new List<MaterialPairList>(); // get all materials for oldschool deck
+    [Tooltip("Put all decal textures for the oldschool deck grip here in the same order as for others decks.")]
+    public List<TexturePairList> oldschoolDeckGripDecals = new List<TexturePairList>(); // get all decals for oldschool deck
+
+    [Tooltip("Put all materials for the oldschool deck bottom here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> oldschoolDeckBottomMaterials = new List<MaterialPairList>(); // get all materials for oldschool deck
+    [Tooltip("Put all decal textures for the oldschool deck bottom here in the same order as for others decks.")]
+    public List<TexturePairList> oldschoolDeckBottomDecals = new List<TexturePairList>(); // get all decals for oldschool deck
 
     private readonly List<TagDisplayNames> _wheelTags = new List<TagDisplayNames>(); // list of wheel tags and their corresponding UI names
     private readonly List<TagDisplayNames> _deckDefTags = new List<TagDisplayNames>(); // list of deck tags and their corresponding UI names
@@ -74,6 +118,7 @@ public class MaterialSwitcher : MonoBehaviour
     // private const string AxleBase = "axle_base";
     private const string BearingCap = "bearing_cap";
     private const string Wheel = "wheel";
+
     private const string BoardClassic = "board_classic";
     private const string BoardLong = "board_long";
     private const string BoardRound = "board_round";
@@ -92,19 +137,23 @@ public class MaterialSwitcher : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _wheelTags.Add(new TagDisplayNames { modelTag = AxleMain, uiName = "Axle" });
+        _wheelTags.Add(new TagDisplayNames { modelTag = AxleMain, partMatIndex = 1, uiName = "Axle" });
         // _wheelTags.Add(new TagDisplayNames { modelTag = AxleBase, uiName = "Axle Base" });
-        _wheelTags.Add(new TagDisplayNames { modelTag = BearingCap, uiName = "Bearings" });
-        _wheelTags.Add(new TagDisplayNames { modelTag = Wheel, uiName = "Wheels" });
+        _wheelTags.Add(new TagDisplayNames { modelTag = BearingCap, partMatIndex = 0, uiName = "Bearings" });
+        _wheelTags.Add(new TagDisplayNames { modelTag = Wheel, partMatIndex = 0, uiName = "Wheels" });
 
-        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partName ="grip", uiName = "Grip" });
-        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partName ="deck", uiName = "Deck" });
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardLong, partName ="grip", uiName = "Grip" });
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardLong, partName ="deck", uiName = "Deck" });
-        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardRound, partName ="grip", uiName = "Grip" });
-        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardRound, partName ="deck", uiName = "Deck" });
-        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partName ="grip", uiName = "Grip" });
-        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partName ="deck", uiName = "Deck" });
+
+        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partMatIndex = 2, uiName = "Grip" });
+        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partMatIndex = 1, uiName = "Deck" });
+
+        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardLong, partMatIndex = 2, uiName = "Grip" });
+        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardLong, partMatIndex = 1, uiName = "Deck" });
+
+        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardRound, partMatIndex = 2, uiName = "Grip" });
+        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardRound, partMatIndex = 1, uiName = "Deck" });
+
+        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partMatIndex = 2, uiName = "Grip" });
+        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partMatIndex = 1, uiName = "Deck" });
 
         _defWheelTag = modelSwitcher.wheelPrefabs.defaultWheelPrefab.tag;
         _longWheelTag = modelSwitcher.wheelPrefabs.longboardWheelPrefab.tag;
@@ -150,47 +199,86 @@ public class MaterialSwitcher : MonoBehaviour
         return selectionCol;
     }
 
-    // TODO: add functionality for models with multiple materials
-    public List<MaterialPairList> GetMaterials(string prefabTag, string modelTag) // gives the materials for the selected model part
+    public List<MaterialPairList> GetMaterials(string prefabTag, string modelTag, int objMatIndex) // gives the materials for the selected model part
     {
+        List<MaterialPairList> matList = null;
+        // Debug.Log("Getting materials for " + modelTag + " at material slot " + objMatIndex);
+
         switch (modelTag)
         {
             case AxleMain:
-                return null; // TODO: add axle materials
+                break; // TODO: add axle materials
             case BearingCap:
                 if (prefabTag == _defWheelTag)
                 {
-                    return bearingDefaultMaterials;
+                    matList = bearingDefaultMaterials;
                 }
                 else if (prefabTag == _longWheelTag)
                 {
-                    return bearingLongMaterials;
+                    matList = bearingLongMaterials;
                 }
-                return null;
+                break;
             case Wheel:
                 if (prefabTag == _defWheelTag)
                 {
-                    return wheelDefaultMaterials;
+                    matList = wheelDefaultMaterials;
                 }
                 else if (prefabTag == _longWheelTag)
                 {
-                    return wheelLongMaterials;
+                    matList = wheelLongMaterials;
                 }
-                return null;
+                break;
             case BoardClassic:
-                return null; // TODO: add classic deck materials
+                if (objMatIndex == _deckDefTags[0].partMatIndex)
+                {
+                    matList = classicDeckGripMaterials;
+                }
+                else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                {
+                    matList = classicDeckBottomMaterials;
+                }
+                break;
             case BoardLong:
-                return null; // TODO: add longboard deck materials
+                if (objMatIndex == _deckLongTags[0].partMatIndex)
+                {
+                    matList = longboardDeckGripMaterials;
+                    // Debug.Log("Found longboard deck grip materials.");
+                }
+                else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                {
+                    matList = longboardDeckBottomMaterials;
+                    // Debug.Log("Found longboard deck bottom materials.");
+                }
+                break;
             case BoardRound:
-                return null; // TODO: add roundtail deck materials
+                if (objMatIndex == _deckRoundTags[0].partMatIndex)
+                {
+                    matList = roundtailDeckGripMaterials;
+                }
+                else if (objMatIndex == _deckRoundTags[1].partMatIndex)
+                {
+                    matList = roundtailDeckBottomMaterials;
+                }
+                break;
             case BoardOld:
-                return null; // TODO: add oldschool deck materials
-            default:
-                return null;
+                if (objMatIndex == _deckOldTags[0].partMatIndex)
+                {
+                    matList = oldschoolDeckGripMaterials;
+                }
+                else if (objMatIndex == _deckOldTags[1].partMatIndex)
+                {
+                    matList = oldschoolDeckBottomMaterials;
+                }
+                break;
         }
+        if (matList == null)
+        {
+            Debug.LogError("No materials found for " + modelTag + " at material slot " + objMatIndex);
+        }
+
+        return matList;
     }
 
-    // TODO: add functionality for models with multiple materials
     // Store all current materials
     private readonly List<CurrentSelection> _currentMaterials = new List<CurrentSelection>();
     private static readonly int UseDecalTexture = Shader.PropertyToID("_Use_Decal_Texture");
@@ -198,9 +286,9 @@ public class MaterialSwitcher : MonoBehaviour
 
     // when an object has multiple materials, they get stored in an array of materials (Renderer.materials)
     // we need to know which material to change = objMatIndex
-    public void ChangeMaterial(string prefabTag, string modelTag, int matIndex, int objMatIndex = 0) // changes the material of the selected model part
+    public void ChangeMaterial(string prefabTag, string modelTag, int matIndex, int objMatIndex) // changes the material of the selected model part
     {
-        var mats = GetMaterials(prefabTag, modelTag);
+        var mats = GetMaterials(prefabTag, modelTag, objMatIndex);
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag); // get all objects with the same tag
 
@@ -221,7 +309,7 @@ public class MaterialSwitcher : MonoBehaviour
             }
 
             // set decal to previously selected decal (if any)
-            var currDecalIndex = GetCurrentDecal(modelTag);
+            var currDecalIndex = GetCurrentDecal(modelTag, objMatIndex);
             ChangeDecal(prefabTag, modelTag, currDecalIndex, objMatIndex);
         }
 
@@ -238,8 +326,7 @@ public class MaterialSwitcher : MonoBehaviour
         _currentMaterials.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = matIndex, objMatIndex = objMatIndex}); // else add new material to list
     }
 
-    // TODO: add functionality for models with multiple materials
-    public int GetCurrentMaterial(string prefabTag, string partTag, int objMatIndex = 0)
+    public int GetCurrentMaterial(string prefabTag, string partTag, int objMatIndex)
     {
         foreach (var materialPair in _currentMaterials)
         {
@@ -255,7 +342,7 @@ public class MaterialSwitcher : MonoBehaviour
     /*
      * Decal Functionality #######################################################
      */
-    public List<TexturePairList> GetDecals(string prefabTag, string modelTag) // gives the materials for the selected model part
+    public List<TexturePairList> GetDecals(string prefabTag, string modelTag, int objMatIndex) // gives the materials for the selected model part
     {
         List<TexturePairList> decalList = null;
 
@@ -284,26 +371,61 @@ public class MaterialSwitcher : MonoBehaviour
                 }
                 break;
             case BoardClassic:
-                break; // TODO: add classic deck materials
+                if (objMatIndex == _deckDefTags[0].partMatIndex)
+                {
+                    decalList = classicDeckGripDecals;
+                }
+                else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                {
+                    decalList = classicDeckBottomDecals;
+                }
+                break;
             case BoardLong:
-                break; // TODO: add longboard deck materials
+                if (objMatIndex == _deckLongTags[0].partMatIndex)
+                {
+                    decalList = longboardDeckGripDecals;
+                }
+                else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                {
+                    decalList = longboardDeckBottomDecals;
+                }
+                break;
             case BoardRound:
-                break; // TODO: add roundtail deck materials
+                if (objMatIndex == _deckRoundTags[0].partMatIndex)
+                {
+                    decalList = roundtailDeckGripDecals;
+                }
+                else if (objMatIndex == _deckRoundTags[1].partMatIndex)
+                {
+                    decalList = roundtailDeckBottomDecals;
+                }
+                break;
             case BoardOld:
-                break; // TODO: add oldschool deck materials
+                if (objMatIndex == _deckOldTags[0].partMatIndex)
+                {
+                    decalList = oldschoolDeckGripDecals;
+                }
+                else if (objMatIndex == _deckOldTags[1].partMatIndex)
+                {
+                    decalList = oldschoolDeckBottomDecals;
+                }
+                break;
         }
+        if (decalList == null)
+        {
+            Debug.LogError("No decals found for " + modelTag + " at material slot " + objMatIndex);
+        }
+
         return decalList;
     }
-
-    // TODO: add functionality for models with multiple materials
 
     // Store all current decals
     private readonly List<CurrentSelection> _currentDecals = new List<CurrentSelection>();
 
 
-    public void ChangeDecal(string prefabTag, string modelTag, int decalIndex, int objMatIndex = 0) // changes the material of the selected model part
+    public void ChangeDecal(string prefabTag, string modelTag, int decalIndex, int objMatIndex) // changes the material of the selected model part
     {
-        var currDecalList = GetDecals(prefabTag, modelTag);
+        var currDecalList = GetDecals(prefabTag, modelTag, objMatIndex);
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag);
 
@@ -345,8 +467,7 @@ public class MaterialSwitcher : MonoBehaviour
     }
 
 
-    // TODO: add functionality for models with multiple materials
-    public int GetCurrentDecal(string partTag, int objMatIndex = 0)
+    public int GetCurrentDecal(string partTag, int objMatIndex)
     {
         foreach (var decalPair in _currentDecals)
         {
@@ -364,6 +485,7 @@ public class MaterialSwitcher : MonoBehaviour
     // the relevant materials start with "01_" and "02_" for Grip and Bottom respectively
     // MaterialSwitcher returns the tags for the dropdown in UIManager, part of these returns is "partName" which is either "grip" or "deck"
     // depending on the partName, we need to find the corresponding material index of the material that starts with "01_" or "02_"
+    /*
     public int GetDeckMaterialIndex(string prefabTag, string partTag, string partName)
     {
         var mats = GetMaterials(prefabTag, partTag);
@@ -396,4 +518,5 @@ public class MaterialSwitcher : MonoBehaviour
 
         return matIndex;
     }
+    */
 }

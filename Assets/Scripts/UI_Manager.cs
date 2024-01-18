@@ -212,12 +212,12 @@ public class UIManager : MonoBehaviour
 
     // Dropdown functionality ++++++++++++++++++++++++++++++++
     private string _currentPrefabTag; // store current prefab tag
-    private string _deckPartName; // store current deck part name
+    private int _partMatIndex; // store current deck part name
 
     public void PopulateMaterialDropdown(string selectedPrefabTag)
     {
         // if there are any dropdown options, destroy them before adding new ones
-        _deckPartName = null;
+        _partMatIndex = 0;
         _currentOptions.Clear(); // clear current options
         _materialDropdown.ClearOptions(); // clear dropdown options
         _materialDropdown.options.Insert(0, new TMP_Dropdown.OptionData("None")); // add placeholder option
@@ -264,10 +264,8 @@ public class UIManager : MonoBehaviour
 
         var selectedTag = _currentOptions[index - 1].modelTag; // get tag of selected option, -1 because placeholder is at index 0
 
-        if (selectedTag.StartsWith("deck_")) // if selected tag is a deck
-        {
-            _deckPartName = _currentOptions[index - 1].partName; // store part name of selected deck
-        } // this is necessary because the deck has two parts (deck & grip) and we need to know which one is selected to change the materialb
+        _partMatIndex = _currentOptions[index - 1].partMatIndex; // store material index of selected model part
+        // this is necessary because some materials have two parts (e.g. deck & grip) and we need to know which one is selected to change the material
 
         // Clear listeners for all toggle components in of all toggle buttons in _currentMatButtons and _currentDecButtons
         // + delete all buttons in _currentMatButtons and _currentDecButtons
@@ -321,11 +319,11 @@ public class UIManager : MonoBehaviour
 
     private void PopulateMaterialPicker(string selectedPartTag) // populate the material picker with the materials of the selected tag
     {
-        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, selectedPartTag)); // get materials from MaterialSwitcher script & store them in a new list
+        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, selectedPartTag, _partMatIndex)); // get materials from MaterialSwitcher script & store them in a new list
 
         if (_availableMaterials != null)
         {
-            int previousMaterial = materialSwitcher.GetCurrentMaterial(_currentPrefabTag, selectedPartTag); // get previous material from MaterialSwitcher script
+            int previousMaterial = materialSwitcher.GetCurrentMaterial(_currentPrefabTag, selectedPartTag, _partMatIndex); // get previous material from MaterialSwitcher script
 
             Toggle toggleToActivate = null;
 
@@ -395,19 +393,9 @@ public class UIManager : MonoBehaviour
     {
         if (!isOn) return; // only execute if toggle is on
 
-        // on axis_main, the deck material is always the second material (index 1)
-        // for the deck, we need to find out which part is selected (deck or grip)
-        if (_deckPartName != null)
-        {
-            matIndex = materialSwitcher.GetDeckMaterialIndex(prefabTag, partTag, _deckPartName);
-        } else if (partTag == "axle_main")
-        {
-            matIndex = 1;
-        }
+        materialSwitcher.ChangeMaterial(prefabTag, partTag, matIndex, _partMatIndex); // change material of selected model part
 
-        materialSwitcher.ChangeMaterial(prefabTag, partTag, matIndex); // change material of selected model part
-
-        int decalIndex = materialSwitcher.GetCurrentDecal(partTag);
+        int decalIndex = materialSwitcher.GetCurrentDecal(partTag, _partMatIndex);
 
         // change background color of decal picker buttons
         foreach (var button in _currentDecButtons)
@@ -448,13 +436,12 @@ public class UIManager : MonoBehaviour
         noneDecalButton.GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, selectedPartTag, MaterialSwitcher.Error404, isOn));
         _currentDecButtons?.Add(noneDecalButton); // add no decal button to list of current buttons
 
-        var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, selectedPartTag); // get decals from MaterialSwitcher script
+        var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, selectedPartTag, _partMatIndex); // get decals from MaterialSwitcher script
         _availableDecals = new List<TexturePairList>(tmpList); // get decals from MaterialSwitcher script & store them in a new list
 
         if (_availableDecals != null)
         {
-            //TODO: add functionality to get saved decal selection even between different models
-            int previousDecal = materialSwitcher.GetCurrentDecal(selectedPartTag); // get previous decal from MaterialSwitcher script
+            int previousDecal = materialSwitcher.GetCurrentDecal(selectedPartTag, _partMatIndex); // get previous decal from MaterialSwitcher script
 
             Toggle toggleToActivate = null;
 
@@ -527,18 +514,7 @@ public class UIManager : MonoBehaviour
     {
         if (isOn)
         {
-            int matIndex = 0;
-            // on axis_main, the deck material is always the second material (index 1)
-            // for the deck, we need to find out which part is selected (deck or grip)
-            if (_deckPartName != null)
-            {
-                matIndex = materialSwitcher.GetDeckMaterialIndex(prefabTag, partTag, _deckPartName);
-            } else if (partTag == "axle_main")
-            {
-                matIndex = 1;
-            }
-
-            materialSwitcher.ChangeDecal(prefabTag, partTag, decalIndex, matIndex); // change decal texture of selected model part
+            materialSwitcher.ChangeDecal(prefabTag, partTag, decalIndex, _partMatIndex); // change decal texture of selected model part
             // Debug.Log("Decal button of model part " + partTag + " clicked");
         }
     }
