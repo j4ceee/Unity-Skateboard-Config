@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: floor
-  m_Shader: {fileID: -6465566751694194690, guid: 33212ada1d8ac9e48880e68d74641d44,
+  m_Shader: {fileID: -6465566751694194690, guid: 974797399be1a9746aaf208bd240f9a0,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -37,12 +37,16 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _BaseMap:
+    - _Ambient_Occlusion_Map:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 0b41a785b97cbbd45bef46b3fffa0b03, type: 3}
+        m_Scale: {x: 40, y: 40}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 34ca71df4912d724cb7f75ea8b2d8990, type: 3}
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: -0, y: -5}
     - _DetailAlbedoMap:
@@ -65,13 +69,17 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Graffiti_1:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Height_Map:
         m_Texture: {fileID: 2800000, guid: 0a70460574b2ab84a924f9f41c662069, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 0b41a785b97cbbd45bef46b3fffa0b03, type: 3}
+        m_Scale: {x: 40, y: 40}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -86,7 +94,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 0a70460574b2ab84a924f9f41c662069, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Roughness_Map:
@@ -122,6 +130,7 @@ Material:
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _Diffuse_Brightness: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EnvironmentReflections: 1
@@ -130,26 +139,30 @@ Material:
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _Normal_Strength: 0.12
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Parallax_Strength: 0
+    - _Parallax_Strength: 2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Roughness: 0.74
-    - _Smoothness: 0.8363636
+    - _Roughness: 0.46
+    - _Smoothness: 0.522
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _UVSec: 0
+    - _Use_Graffiti_1: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 0.79999995, g: 0.79999995, b: 0.79999995, a: 1}
     - _Color: {r: 0.79999995, g: 0.79999995, b: 0.79999995, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Graffiti_1_Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Graffiti_1_Size: {r: 1, g: 1, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _Tiling: {r: 30, g: 30, b: 0, a: 0}
+    - _Tiling: {r: 40, g: 40, b: 0, a: 0}
   m_BuildTextureStacks: []
