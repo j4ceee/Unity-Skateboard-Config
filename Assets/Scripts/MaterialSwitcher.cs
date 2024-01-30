@@ -33,6 +33,7 @@ public class CurrentSelection
     public string partTag;
     public int matTexIndex;
     public int objMatIndex;
+    public int hueIndex = 0;
 }
 
 public class MaterialSwitcher : MonoBehaviour
@@ -450,12 +451,12 @@ public class MaterialSwitcher : MonoBehaviour
         // change decal of all objects with the same tag
         foreach (var modelPart in editedObjects)
         {
+            Renderer modelRenderer = modelPart.GetComponent<Renderer>();
+            Material[] objMaterials = modelRenderer.materials;
+
             // Debug.Log("Found " + modelTag + " with " + currDecalList.Count + " decals.");
             if (decalIndex != Error404 && decalIndex >= 0 && decalIndex < currDecalList.Count && currDecalList[decalIndex].texture)
             {
-                Renderer modelRenderer = modelPart.GetComponent<Renderer>();
-                Material[] objMaterials = modelRenderer.materials;
-
                 if (objMatIndex >= 0 && objMatIndex < objMaterials.Length)
                 {
                     objMaterials[objMatIndex].SetFloat(UseDecalTexture, 1f); // set bool UseDecalTexture to true
@@ -466,7 +467,9 @@ public class MaterialSwitcher : MonoBehaviour
             }
             else // set decal to none
             {
-                modelPart.GetComponent<Renderer>().material.SetFloat(UseDecalTexture, 0f); // set bool UseDecalTexture to false
+                objMaterials[objMatIndex].SetFloat(UseDecalTexture, 0f); // set bool UseDecalTexture to false
+                objMaterials[objMatIndex].SetTexture(DecalTexture, null); // remove the decal texture
+                // Debug.Log("Set decal to none for " + modelTag);
             }
         }
         // save current decal
@@ -483,14 +486,14 @@ public class MaterialSwitcher : MonoBehaviour
     }
 
 
-    public int GetCurrentDecal(string partTag, int objMatIndex)
+    public int GetCurrentDecal(string partTag, int objMatIndex, bool getHue = false)
     {
         foreach (var decalPair in _currentDecals)
         {
             if (decalPair.partTag == partTag && decalPair.objMatIndex == objMatIndex)
             {
                 // Debug.Log("Found decal " + decalPair.matTexIndex + " for " + partTag);
-                return decalPair.matTexIndex;
+                return getHue ? decalPair.hueIndex : decalPair.matTexIndex; // return decal index or hue index
             }
         }
         return Error404; // Error404 as error code for no decal found
