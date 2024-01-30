@@ -263,6 +263,7 @@ public class UIManager : MonoBehaviour
         }
 
         var selectedTag = _currentOptions[index - 1].modelTag; // get tag of selected option, -1 because placeholder is at index 0
+        // Debug.Log("Selected tag: " + selectedTag);
 
         _partMatIndex = _currentOptions[index - 1].partMatIndex; // store material index of selected model part
         // this is necessary because some materials have two parts (e.g. deck & grip) and we need to know which one is selected to change the material

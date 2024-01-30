@@ -62,9 +62,9 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 		SetWheels(WheelDef);
 	}
 
-	// TODO: Share wheel tags between all scripts
+	// TODO: Share tags between all scripts
 	private static readonly string[] WheelTags = new string[] { "axle_main", "axle_base", "bearing_cap", "wheel" };	// array of wheel tags
-	private static readonly string[] DeckTags = new string[] { "board_classic", "board_long", "board_round", "board_old"};	// array of wheel tags
+	private static readonly string[] DeckTags = new string[] { "board" };	// array of wheel tags
 	private const string WheelDef = "wheel_def";
 	private const string WheelLong = "wheel_long";
 	private const string DeckDef = "deck_def";
@@ -272,14 +272,17 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 	{
 		if (currentPrefabTag == null) return;
 
+		// this will throw an error on startup, because in the material switcher the Start() wasn't called yet -> tags the MaterialSwitcher uses are not yet initialized
 		var modelPartOptions = materialSwitcher.GiveModelPartsOptions(currentPrefabTag); // get model part options for wheels
 
 		if (modelPartOptions == null) return;
 
-		// update material of wheels (and bearings) to match the selected material (if a material has already been selected)
-		foreach (var modelTag in currentModelTags) // iterate through each wheel tag
+		// update material of modelTag) to match the selected material (if a material has already been selected)
+		foreach (var modelTag in currentModelTags) // iterate through each modelTag
 		{
 			int objMatIndex = 0;
+
+			// get material index
 			foreach (var modelPart in modelPartOptions)
 			{
 				if (modelTag == modelPart.modelTag)
@@ -287,13 +290,14 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 					objMatIndex = modelPart.partMatIndex;
 				}
 			}
-			// for every wheel tag, check if a material has already been selected
-			var materialIndex = materialSwitcher.GetCurrentMaterial(currentPrefabTag, modelTag, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
+			// for every modelTag, check if a material has already been selected
+			var materialIndex = materialSwitcher.GetCurrentMaterial(currentPrefabTag, modelTag, objMatIndex); // update material of mod to match the selected wheels
 			if (materialIndex != 999) // if a material has already been selected
 			{
 				materialSwitcher.ChangeMaterial(currentPrefabTag, modelTag, materialIndex, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
 			}
 
+			// for every modelTag, check if a decal has already been selected
 			var decalIndex = materialSwitcher.GetCurrentDecal(modelTag, objMatIndex); // update decal of wheels (and bearings) to match the selected wheels
 			if (decalIndex != 999) // if a decal has already been selected
 			{
