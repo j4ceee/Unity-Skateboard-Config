@@ -81,7 +81,7 @@ PrefabInstance:
     - target: {fileID: -3180902865163018342, guid: ba36e1eb27e556743a7ec8c39f2a1af3,
         type: 3}
       propertyPath: m_TagString
-      value: board_old
+      value: board
       objectReference: {fileID: 0}
     - target: {fileID: -3180902865163018342, guid: ba36e1eb27e556743a7ec8c39f2a1af3,
         type: 3}

@@ -19,6 +19,7 @@ TagManager:
   - board_round
   - board_old
   - deck_old
+  - board
   layers:
   - Default
   - TransparentFX

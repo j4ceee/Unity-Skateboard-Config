@@ -119,10 +119,7 @@ public class MaterialSwitcher : MonoBehaviour
     private const string BearingCap = "bearing_cap";
     private const string Wheel = "wheel";
 
-    private const string BoardClassic = "board_classic";
-    private const string BoardLong = "board_long";
-    private const string BoardRound = "board_round";
-    private const string BoardOld = "board_old";
+    private const string Board = "board";
 
     private string _defWheelTag;
     private string _longWheelTag;
@@ -143,17 +140,17 @@ public class MaterialSwitcher : MonoBehaviour
         _wheelTags.Add(new TagDisplayNames { modelTag = Wheel, partMatIndex = 0, uiName = "Wheels" });
 
 
-        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partMatIndex = 2, uiName = "Grip" });
-        _deckDefTags.Add(new TagDisplayNames { modelTag = BoardClassic, partMatIndex = 1, uiName = "Deck" });
+        _deckDefTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
+        _deckDefTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
 
-        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardLong, partMatIndex = 2, uiName = "Grip" });
-        _deckLongTags.Add(new TagDisplayNames { modelTag = BoardLong, partMatIndex = 1, uiName = "Deck" });
+        _deckLongTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
+        _deckLongTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
 
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardRound, partMatIndex = 2, uiName = "Grip" });
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = BoardRound, partMatIndex = 1, uiName = "Deck" });
+        _deckRoundTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
+        _deckRoundTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
 
-        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partMatIndex = 2, uiName = "Grip" });
-        _deckOldTags.Add(new TagDisplayNames { modelTag = BoardOld, partMatIndex = 1, uiName = "Deck" });
+        _deckOldTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
+        _deckOldTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
 
         _defWheelTag = modelSwitcher.wheelPrefabs.defaultWheelPrefab.tag;
         _longWheelTag = modelSwitcher.wheelPrefabs.longboardWheelPrefab.tag;
@@ -168,6 +165,9 @@ public class MaterialSwitcher : MonoBehaviour
      */
     public IEnumerable<TagDisplayNames> GiveModelPartsOptions(string currPrefabTag)
     {
+        // Debug.Log("" + _defDeckTag);
+        // TODO: check each prefab tag initialized in Start() for null (when calling GiveModelPartsOptions() immediately after startup, Start() has not been called yet)
+
         var selectionCol = _deckDefTags;
 
         // compare current prefab tag to all possible prefab tags
@@ -228,46 +228,52 @@ public class MaterialSwitcher : MonoBehaviour
                     matList = wheelLongMaterials;
                 }
                 break;
-            case BoardClassic:
-                if (objMatIndex == _deckDefTags[0].partMatIndex)
+            case Board:
+                if (prefabTag == _defDeckTag)
                 {
-                    matList = classicDeckGripMaterials;
+                    if (objMatIndex == _deckDefTags[0].partMatIndex)
+                    {
+                        matList = classicDeckGripMaterials;
+                    }
+                    else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                    {
+                        matList = classicDeckBottomMaterials;
+                    }
                 }
-                else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                else if (prefabTag == _longDeckTag)
                 {
-                    matList = classicDeckBottomMaterials;
+                    if (objMatIndex == _deckLongTags[0].partMatIndex)
+                    {
+                        matList = longboardDeckGripMaterials;
+                        // Debug.Log("Found longboard deck grip materials.");
+                    }
+                    else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                    {
+                        matList = longboardDeckBottomMaterials;
+                        // Debug.Log("Found longboard deck bottom materials.");
+                    }
                 }
-                break;
-            case BoardLong:
-                if (objMatIndex == _deckLongTags[0].partMatIndex)
+                else if (prefabTag == _roundDeckTag)
                 {
-                    matList = longboardDeckGripMaterials;
-                    // Debug.Log("Found longboard deck grip materials.");
+                    if (objMatIndex == _deckRoundTags[0].partMatIndex)
+                    {
+                        matList = roundtailDeckGripMaterials;
+                    }
+                    else if (objMatIndex == _deckRoundTags[1].partMatIndex)
+                    {
+                        matList = roundtailDeckBottomMaterials;
+                    }
                 }
-                else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                else if (prefabTag == _oldDeckTag)
                 {
-                    matList = longboardDeckBottomMaterials;
-                    // Debug.Log("Found longboard deck bottom materials.");
-                }
-                break;
-            case BoardRound:
-                if (objMatIndex == _deckRoundTags[0].partMatIndex)
-                {
-                    matList = roundtailDeckGripMaterials;
-                }
-                else if (objMatIndex == _deckRoundTags[1].partMatIndex)
-                {
-                    matList = roundtailDeckBottomMaterials;
-                }
-                break;
-            case BoardOld:
-                if (objMatIndex == _deckOldTags[0].partMatIndex)
-                {
-                    matList = oldschoolDeckGripMaterials;
-                }
-                else if (objMatIndex == _deckOldTags[1].partMatIndex)
-                {
-                    matList = oldschoolDeckBottomMaterials;
+                    if (objMatIndex == _deckOldTags[0].partMatIndex)
+                    {
+                        matList = oldschoolDeckGripMaterials;
+                    }
+                    else if (objMatIndex == _deckOldTags[1].partMatIndex)
+                    {
+                        matList = oldschoolDeckBottomMaterials;
+                    }
                 }
                 break;
         }
@@ -334,6 +340,10 @@ public class MaterialSwitcher : MonoBehaviour
             {
                 return materialPair.matTexIndex;
             }
+            else if (partTag is Board or BearingCap && materialPair.partTag == partTag && materialPair.objMatIndex == objMatIndex)
+            {
+                return materialPair.matTexIndex;
+            }
         }
         return Error404; // Error404 as error code for no material found
     }
@@ -370,44 +380,50 @@ public class MaterialSwitcher : MonoBehaviour
                     decalList = wheelLongDecals;
                 }
                 break;
-            case BoardClassic:
-                if (objMatIndex == _deckDefTags[0].partMatIndex)
+            case Board:
+                if (prefabTag == _defDeckTag)
                 {
-                    decalList = classicDeckGripDecals;
+                    if (objMatIndex == _deckDefTags[0].partMatIndex)
+                    {
+                        decalList = classicDeckGripDecals;
+                    }
+                    else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                    {
+                        decalList = classicDeckBottomDecals;
+                    }
                 }
-                else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                else if (prefabTag == _longDeckTag)
                 {
-                    decalList = classicDeckBottomDecals;
+                    if (objMatIndex == _deckLongTags[0].partMatIndex)
+                    {
+                        decalList = longboardDeckGripDecals;
+                    }
+                    else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                    {
+                        decalList = longboardDeckBottomDecals;
+                    }
                 }
-                break;
-            case BoardLong:
-                if (objMatIndex == _deckLongTags[0].partMatIndex)
+                else if (prefabTag == _roundDeckTag)
                 {
-                    decalList = longboardDeckGripDecals;
+                    if (objMatIndex == _deckRoundTags[0].partMatIndex)
+                    {
+                        decalList = roundtailDeckGripDecals;
+                    }
+                    else if (objMatIndex == _deckRoundTags[1].partMatIndex)
+                    {
+                        decalList = roundtailDeckBottomDecals;
+                    }
                 }
-                else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                else if (prefabTag == _oldDeckTag)
                 {
-                    decalList = longboardDeckBottomDecals;
-                }
-                break;
-            case BoardRound:
-                if (objMatIndex == _deckRoundTags[0].partMatIndex)
-                {
-                    decalList = roundtailDeckGripDecals;
-                }
-                else if (objMatIndex == _deckRoundTags[1].partMatIndex)
-                {
-                    decalList = roundtailDeckBottomDecals;
-                }
-                break;
-            case BoardOld:
-                if (objMatIndex == _deckOldTags[0].partMatIndex)
-                {
-                    decalList = oldschoolDeckGripDecals;
-                }
-                else if (objMatIndex == _deckOldTags[1].partMatIndex)
-                {
-                    decalList = oldschoolDeckBottomDecals;
+                    if (objMatIndex == _deckOldTags[0].partMatIndex)
+                    {
+                        decalList = oldschoolDeckGripDecals;
+                    }
+                    else if (objMatIndex == _deckOldTags[1].partMatIndex)
+                    {
+                        decalList = oldschoolDeckBottomDecals;
+                    }
                 }
                 break;
         }
