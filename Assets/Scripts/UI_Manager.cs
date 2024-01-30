@@ -422,6 +422,8 @@ public class UIManager : MonoBehaviour
 
     // Decal picker functionality ++++++++++++++++++++++++++++++++
     public GameObject decalButtonsContainer;
+    public GameObject decalHueSlider;
+
     //public GameObject materialButtonPrefab; // store material button prefab
     public GameObject noneSelectedButtonPrefab;
 
@@ -436,6 +438,10 @@ public class UIManager : MonoBehaviour
         noneDecalButton.GetComponent<Toggle>().group = decalButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of decalButtonsContainer
         noneDecalButton.GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, selectedPartTag, MaterialSwitcher.Error404, isOn));
         _currentDecButtons?.Add(noneDecalButton); // add no decal button to list of current buttons
+
+        // Reset decal hue slider
+        decalHueSlider.SetActive(false); // hide decal hue slider
+        decalHueSlider.GetComponent<Slider>().value = 0; // reset decal hue slider value
 
         var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, selectedPartTag, _partMatIndex); // get decals from MaterialSwitcher script
         _availableDecals = new List<TexturePairList>(tmpList); // get decals from MaterialSwitcher script & store them in a new list
@@ -469,6 +475,9 @@ public class UIManager : MonoBehaviour
 
                     if (previousDecal == i) // if previous decal is the same as the current decal
                     {
+                        decalHueSlider.SetActive(true); // show decal hue slider
+                        var hue = materialSwitcher.GetCurrentDecal(selectedPartTag, _partMatIndex, true);
+                        decalHueSlider.GetComponent<Slider>().value = hue; // set decal hue slider value to hue of current decal
                         toggleToActivate = toggleComponent; // store toggle component of current decal
                     }
                     else
@@ -515,6 +524,18 @@ public class UIManager : MonoBehaviour
     {
         if (isOn)
         {
+            if (decalIndex == MaterialSwitcher.Error404) // if no decal button is clicked
+            {
+                decalHueSlider.SetActive(false); // hide decal hue slider
+                // Debug.Log("Hid decal hue slider");
+                // Debug.Log("'No decal' button clicked");
+            }
+            else
+            {
+                decalHueSlider.SetActive(true); // show decal hue slider
+                var hue = materialSwitcher.GetCurrentDecal(partTag, decalIndex, true);
+                decalHueSlider.GetComponent<Slider>().value = hue; // set decal hue slider value to hue of current decal
+            }
             materialSwitcher.ChangeDecal(prefabTag, partTag, decalIndex, _partMatIndex); // change decal texture of selected model part
             // Debug.Log("Decal button of model part " + partTag + " clicked");
         }
