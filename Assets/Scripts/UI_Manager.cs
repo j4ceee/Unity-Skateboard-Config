@@ -35,8 +35,7 @@ public class UIManager : MonoBehaviour
             _materialDropdown.onValueChanged.AddListener(OnDropdownOptionSelected);
         }
 
-        _labelText =
-            dropdownObject.GetComponentInChildren<TextMeshProUGUI>(); // get label text component of dropdownObject
+        _labelText = dropdownObject.GetComponentInChildren<TextMeshProUGUI>(); // get label text component of dropdownObject
 
         ShowMaterialPicker(false);
     }
@@ -213,11 +212,13 @@ public class UIManager : MonoBehaviour
     // Dropdown functionality ++++++++++++++++++++++++++++++++
     private string _currentPrefabTag; // store current prefab tag
     private int _partMatIndex; // store current deck part name
+    private string _partTag; // store current deck part name
 
     public void PopulateMaterialDropdown(string selectedPrefabTag)
     {
         // if there are any dropdown options, destroy them before adding new ones
         _partMatIndex = 0;
+        _partTag = "";
         _currentOptions.Clear(); // clear current options
         _materialDropdown.ClearOptions(); // clear dropdown options
         _materialDropdown.options.Insert(0, new TMP_Dropdown.OptionData("None")); // add placeholder option
@@ -262,7 +263,7 @@ public class UIManager : MonoBehaviour
             return;
         }
 
-        var selectedTag = _currentOptions[index - 1].modelTag; // get tag of selected option, -1 because placeholder is at index 0
+        _partTag = _currentOptions[index - 1].modelTag; // get tag of selected option, -1 because placeholder is at index 0
         // Debug.Log("Selected tag: " + selectedTag);
 
         _partMatIndex = _currentOptions[index - 1].partMatIndex; // store material index of selected model part
@@ -291,8 +292,8 @@ public class UIManager : MonoBehaviour
         _currentMatButtons?.Clear();
         _currentDecButtons?.Clear();
 
-        PopulateMaterialPicker(selectedTag); // populate material picker with materials of selected tag
-        PopulateDecalPicker(selectedTag); // populate decal picker with decals of selected tag
+        PopulateMaterialPicker(); // populate material picker with materials of selected tag
+        PopulateDecalPicker(); // populate decal picker with decals of selected tag
 
         ShowMaterialPicker(true); // show material picker
     }
@@ -318,13 +319,13 @@ public class UIManager : MonoBehaviour
     }
     // End of material and decal picker
 
-    private void PopulateMaterialPicker(string selectedPartTag) // populate the material picker with the materials of the selected tag
+    private void PopulateMaterialPicker() // populate the material picker with the materials of the selected tag
     {
-        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, selectedPartTag, _partMatIndex)); // get materials from MaterialSwitcher script & store them in a new list
+        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, _partTag, _partMatIndex)); // get materials from MaterialSwitcher script & store them in a new list
 
         if (_availableMaterials != null)
         {
-            int previousMaterial = materialSwitcher.GetCurrentMaterial(_currentPrefabTag, selectedPartTag, _partMatIndex); // get previous material from MaterialSwitcher script
+            int previousMaterial = materialSwitcher.GetCurrentMaterial(_currentPrefabTag, _partTag, _partMatIndex); // get previous material from MaterialSwitcher script
 
             Toggle toggleToActivate = null;
 
@@ -346,7 +347,7 @@ public class UIManager : MonoBehaviour
                     toggleComponent.group = materialButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of materialButtonsContainer
                     var i1 = i;
                     var i2 = i;
-                    toggleComponent.onValueChanged.AddListener(isOn =>  OnMatButtonClicked(_currentPrefabTag, selectedPartTag, i1, _availableMaterials[i2].uiSpriteColor, isOn));
+                    toggleComponent.onValueChanged.AddListener(isOn =>  OnMatButtonClicked(_currentPrefabTag, _partTag, i1, _availableMaterials[i2].uiSpriteColor, isOn));
                     // execute this function when toggle is clicked
                     // pass colour to later change background for decal picker buttons
 
@@ -431,24 +432,25 @@ public class UIManager : MonoBehaviour
 
     private readonly List<GameObject> _currentDecButtons = new List<GameObject>(); // store current material buttons
 
-    private void PopulateDecalPicker(string selectedPartTag) // populate the decal picker with the decals of the selected tag
+    private void PopulateDecalPicker() // populate the decal picker with the decals of the selected tag
     {
         // Create none decal button
         GameObject noneDecalButton = Instantiate(noneSelectedButtonPrefab, decalButtonsContainer.transform); // create new button from toggle prefab
         noneDecalButton.GetComponent<Toggle>().group = decalButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of decalButtonsContainer
-        noneDecalButton.GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, selectedPartTag, MaterialSwitcher.Error404, isOn));
+        noneDecalButton.GetComponent<Toggle>().onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, _partTag, MaterialSwitcher.Error404, isOn));
         _currentDecButtons?.Add(noneDecalButton); // add no decal button to list of current buttons
 
-        // Reset decal hue slider
+        // Reset decal hue slider & clear listeners
+        decalHueSlider.GetComponent<Slider>().onValueChanged.RemoveAllListeners();
         decalHueSlider.SetActive(false); // hide decal hue slider
         decalHueSlider.GetComponent<Slider>().value = 0; // reset decal hue slider value
 
-        var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, selectedPartTag, _partMatIndex); // get decals from MaterialSwitcher script
+        var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, _partTag, _partMatIndex); // get decals from MaterialSwitcher script
         _availableDecals = new List<TexturePairList>(tmpList); // get decals from MaterialSwitcher script & store them in a new list
 
         if (_availableDecals != null)
         {
-            int previousDecal = materialSwitcher.GetCurrentDecal(selectedPartTag, _partMatIndex); // get previous decal from MaterialSwitcher script
+            int previousDecal = materialSwitcher.GetCurrentDecal(_partTag, _partMatIndex); // get previous decal from MaterialSwitcher script
 
             Toggle toggleToActivate = null;
 
@@ -470,14 +472,24 @@ public class UIManager : MonoBehaviour
                     toggleComponent.group = decalButtonsContainer.GetComponent<ToggleGroup>(); // set toggle group to toggle group of decalButtonsContainer
                     var i1 = i;
                     toggleComponent.onValueChanged.RemoveAllListeners();
-                    toggleComponent.onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, selectedPartTag, i1, isOn));
+                    toggleComponent.onValueChanged.AddListener(isOn => OnDecButtonClicked(_currentPrefabTag, _partTag, i1, isOn));
                     // execute this function when toggle is clicked
 
                     if (previousDecal == i) // if previous decal is the same as the current decal
                     {
                         decalHueSlider.SetActive(true); // show decal hue slider
-                        var hue = materialSwitcher.GetCurrentDecal(selectedPartTag, _partMatIndex, true);
-                        decalHueSlider.GetComponent<Slider>().value = hue; // set decal hue slider value to hue of current decal
+                        var hue = materialSwitcher.GetHue(_partTag, _partMatIndex, i);
+                        decalHueSlider.GetComponent<Slider>().value = hue;
+
+                        // Remove existing listeners and add a new one
+                        decalHueSlider.GetComponent<Slider>().onValueChanged.RemoveAllListeners();
+                        decalHueSlider.GetComponent<Slider>().onValueChanged.AddListener(value =>
+                        {
+                            int hueValue = Mathf.RoundToInt(value);
+                            materialSwitcher.UpdateDecalHue(_partTag, _partMatIndex, i, hueValue);
+                        });
+
+
                         toggleToActivate = toggleComponent; // store toggle component of current decal
                     }
                     else
@@ -532,9 +544,20 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                decalHueSlider.SetActive(true); // show decal hue slider
-                var hue = materialSwitcher.GetCurrentDecal(partTag, decalIndex, true);
-                decalHueSlider.GetComponent<Slider>().value = hue; // set decal hue slider value to hue of current decal
+                //clear listeners
+                decalHueSlider.GetComponent<Slider>().onValueChanged.RemoveAllListeners();
+
+                decalHueSlider.SetActive(true);
+                var hue = materialSwitcher.GetHue(partTag, _partMatIndex, decalIndex);
+                decalHueSlider.GetComponent<Slider>().value = hue;
+
+                // Remove existing listeners and add a new one
+                decalHueSlider.GetComponent<Slider>().onValueChanged.RemoveAllListeners();
+                decalHueSlider.GetComponent<Slider>().onValueChanged.AddListener(value =>
+                {
+                    int hueValue = Mathf.RoundToInt(value);
+                    materialSwitcher.UpdateDecalHue(partTag, _partMatIndex, decalIndex, hueValue);
+                });
             }
             materialSwitcher.ChangeDecal(prefabTag, partTag, decalIndex, _partMatIndex); // change decal texture of selected model part
             // Debug.Log("Decal button of model part " + partTag + " clicked");

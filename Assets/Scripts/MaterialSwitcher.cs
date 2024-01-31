@@ -4,36 +4,44 @@ using UnityEngine;
 [System.Serializable]
 public class MaterialPairList
 {
-    public string uiName;
-    public Material material;
-    public Sprite uiSprite;
-    public Color uiSpriteColor;
+    public string uiName; // name to display in UI
+    public Material material; // material to apply to the model
+    public Sprite uiSprite; // sprite to display in UI
+    public Color uiSpriteColor; // color of the sprite in the UI
 }
 
 [System.Serializable]
 public class TexturePairList
 {
-    public string uiName;
-    public Texture2D texture;
-    public Sprite uiSprite;
+    public string uiName; // name to display in UI
+    public Texture2D texture; // texture to apply to the material
+    public Sprite uiSprite; // sprite to display in UI (colour not necessary, as the texture is already coloured / supposed to be greyscale)
 }
 
 [System.Serializable]
 public class TagDisplayNames
 {
-    public string modelTag;
-    public int partMatIndex;
-    public string uiName;
+    public string modelTag; // tag of the prefab
+    public int partMatIndex; // index of the material in the list of materials for the model
+    public string uiName; // name to display in UI
 }
 
 [System.Serializable]
 public class CurrentSelection
 {
-    public string prefabTag;
-    public string partTag;
-    public int matTexIndex;
-    public int objMatIndex;
-    public int hueIndex = 0;
+    public string prefabTag; // tag of the prefab
+    public string partTag; // tag of the model part
+    public int matTexIndex; // index of the material / texture in the list of possible materials / textures to choose from
+    public int objMatIndex; // index of the material or texture in the materials or textures list of the model (material slot)
+}
+
+[System.Serializable]
+public class CurrentHue
+{
+    public string partTag; // tag of the model part
+    public int matTexIndex; // same as CurrentSelection.matTexIndex
+    public int objMatIndex; // same as CurrentSelection.objMatIndex
+    public int hueIndex; // int value of the hue (should be between 0 and 360)
 }
 
 public class MaterialSwitcher : MonoBehaviour
@@ -121,6 +129,8 @@ public class MaterialSwitcher : MonoBehaviour
     private const string Wheel = "wheel";
 
     private const string Board = "board";
+
+    private static readonly string[] UniqueMaterialTags = new string[] { Wheel }; // tags of prefabs that have a unique material for each prefab (e.g. wheels)
 
     private string _defWheelTag;
     private string _longWheelTag;
@@ -295,6 +305,8 @@ public class MaterialSwitcher : MonoBehaviour
     // we need to know which material to change = objMatIndex
     public void ChangeMaterial(string prefabTag, string modelTag, int matIndex, int objMatIndex) // changes the material of the selected model part
     {
+        //debug_currentMaterials();
+
         var mats = GetMaterials(prefabTag, modelTag, objMatIndex);
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag); // get all objects with the same tag
@@ -304,7 +316,7 @@ public class MaterialSwitcher : MonoBehaviour
         // change material of all objects with the same tag
         foreach (var modelPart in editedObjects) // iterate through all objects with the same tag
         {
-            // Debug.Log("Found " + modelTag + " with " + mats.Count + " decals.");
+            // Debug.Log("Found " + modelTag + " with " + mats.Count + " materials.");
 
             Renderer modelRenderer = modelPart.GetComponent<Renderer>();
             Material[] objMaterials = modelRenderer.materials;
@@ -320,33 +332,104 @@ public class MaterialSwitcher : MonoBehaviour
             ChangeDecal(prefabTag, modelTag, currDecalIndex, objMatIndex);
         }
 
+        // Debug.Log("Change Material - Model Tag: " + modelTag + " / Prefab Tag: " + prefabTag + " / Material slot: " + objMatIndex + " / Material Index: " + matIndex + ".");
         // save current material
+        bool unique = false;
+
+        foreach (var uniqueTag in UniqueMaterialTags) // check if material is unique across different prefabs
+        {
+            if (modelTag == uniqueTag)
+            {
+                unique = true;
+            }
+        }
+
+        bool found = false;
+
         foreach (var materialPair in _currentMaterials) // check if material is already in list
         {
-            if (prefabTag == materialPair.prefabTag && modelTag == materialPair.partTag && materialPair.objMatIndex == objMatIndex) // if model tag and part tag were already assigned a material
+            // materials of wheel models should be unique across different prefabs
+            if (unique && materialPair.prefabTag == prefabTag && materialPair.partTag == modelTag && materialPair.objMatIndex == objMatIndex) // check for prefab tag, part tag and material slot
             {
+                //Debug.Log("Updated wheel material for " + modelTag + " from material " + materialPair.matTexIndex + " to " + matIndex + ".");
                 materialPair.matTexIndex = matIndex; // update material to new material
-                materialPair.objMatIndex = objMatIndex; // update objMatIndex to new objMatIndex
+                // materialPair.objMatIndex = objMatIndex; // update objMatIndex to new objMatIndex
+
+                //debug_currentMaterials();
+                found = true;
+                break;
+            }
+
+            // materials of everything else should be consistent even across different prefabs
+            if (!unique && materialPair.partTag == modelTag && materialPair.objMatIndex == objMatIndex) // only check for part tag and material slot
+            {
+                //Debug.Log("Updated material for " + modelTag + " from material " + materialPair.matTexIndex + " to " + matIndex + ".");
+                materialPair.matTexIndex = matIndex; // update material to new material
+
+                //debug_currentMaterials();
+                found = true;
                 break;
             }
         }
+
+        if (found) return;
+
+        // if material is not in list yet, add it
+        // Debug.Log("Added material "+ matIndex + " for " + modelTag + " at material slot " + objMatIndex + ".");
         _currentMaterials.Add(new CurrentSelection { prefabTag = prefabTag, partTag = modelTag, matTexIndex = matIndex, objMatIndex = objMatIndex}); // else add new material to list
+        //debug_currentMaterials();
     }
 
     public int GetCurrentMaterial(string prefabTag, string partTag, int objMatIndex)
     {
-        foreach (var materialPair in _currentMaterials)
+        // Debug.Log("Change Material - Model Tag: " + partTag + " / Prefab Tag: " + prefabTag + " / Material slot: " + objMatIndex + ".");
+        bool unique = false;
+
+        foreach (var uniqueTag in UniqueMaterialTags) // check if material is unique across different prefabs
         {
-            if (materialPair.prefabTag == prefabTag && materialPair.partTag == partTag && materialPair.objMatIndex == objMatIndex)
+            if (partTag == uniqueTag)
             {
-                return materialPair.matTexIndex;
-            }
-            else if (partTag is Board or BearingCap && materialPair.partTag == partTag && materialPair.objMatIndex == objMatIndex)
-            {
-                return materialPair.matTexIndex;
+                unique = true;
             }
         }
-        return Error404; // Error404 as error code for no material found
+
+        bool found = false;
+        int tmpMatIndex = 0;
+
+        foreach (var materialPair in _currentMaterials)
+        {
+            // materials of wheel models should be unique across different prefabs
+            if (unique && materialPair.prefabTag == prefabTag && materialPair.partTag == partTag &&
+                materialPair.objMatIndex == objMatIndex) // check for prefab tag, part tag and material slot
+            {
+                // Debug.Log("Found wheel material " + materialPair.matTexIndex + " for " + partTag + " at material slot " + objMatIndex + ".");
+
+                tmpMatIndex = materialPair.matTexIndex;
+                found = true;
+                break;
+            }
+
+            else if (!unique && materialPair.partTag == partTag && materialPair.objMatIndex == objMatIndex) // only check for part tag and material slot
+            {
+                // Debug.Log("Found material " + materialPair.matTexIndex + " for " + partTag + " at material slot " + objMatIndex + ".");
+
+                tmpMatIndex = materialPair.matTexIndex;
+                found = true;
+                break;
+            }
+        }
+
+        return found ? tmpMatIndex : Error404; // Error404 as error code for no material found
+    }
+
+    private void debug_currentMaterials()
+    {
+        Debug.Log("++++++++++++++++++++ Current Materials: ++++++++++++++++++++\u2557");
+        foreach (var materialPair in _currentMaterials)
+        {
+            Debug.Log("-- Prefab Tag: " + materialPair.prefabTag + " / Part Tag: " + materialPair.partTag + " / Material Index: " + materialPair.matTexIndex + " / Material Slot: " + materialPair.objMatIndex + ".");
+        }
+        Debug.Log("+++++++++++++++++++++++++++++++++++++++++++++++++++++\u255d");
     }
 
 
@@ -463,18 +546,21 @@ public class MaterialSwitcher : MonoBehaviour
 
                     objMaterials[objMatIndex].SetTexture(DecalTexture, currDecalList[decalIndex].texture); // to the new decal texture
                     // Debug.Log("Set decal " + currDecalList[decalIndex].uiName + " for " + modelTag);
+
+                    // Update the hue of the decal
+                    var hueValue = GetHue(modelTag, objMatIndex, decalIndex);
+                    objMaterials[objMatIndex].SetInt(DecalHue, hueValue);
                 }
             }
             else // set decal to none
             {
                 objMaterials[objMatIndex].SetFloat(UseDecalTexture, 0f); // set bool UseDecalTexture to false
-                objMaterials[objMatIndex].SetTexture(DecalTexture, null); // remove the decal texture
-                // Debug.Log("Set decal to none for " + modelTag);
             }
         }
         // save current decal
         foreach (var texturePair in _currentDecals) // check if decal is already in list
         {
+            // all decals should be shared across different prefabs -> only check for part tag and material slot (not prefab tag)
             if (modelTag == texturePair.partTag && objMatIndex == texturePair.objMatIndex) // if part tag was already assigned a decal
             {
                 texturePair.matTexIndex = decalIndex; // update decal to new material
@@ -486,56 +572,69 @@ public class MaterialSwitcher : MonoBehaviour
     }
 
 
-    public int GetCurrentDecal(string partTag, int objMatIndex, bool getHue = false)
+    public int GetCurrentDecal(string partTag, int objMatIndex)
     {
         foreach (var decalPair in _currentDecals)
         {
+            // all decals should be shared across different prefabs
             if (decalPair.partTag == partTag && decalPair.objMatIndex == objMatIndex)
             {
                 // Debug.Log("Found decal " + decalPair.matTexIndex + " for " + partTag);
-                return getHue ? decalPair.hueIndex : decalPair.matTexIndex; // return decal index or hue index
+                return decalPair.matTexIndex;
             }
         }
         return Error404; // Error404 as error code for no decal found
     }
 
 
-    // deck materials are all ordered differently on the models (there are 3 unordered materials per model)
-    // the relevant materials start with "01_" and "02_" for Grip and Bottom respectively
-    // MaterialSwitcher returns the tags for the dropdown in UIManager, part of these returns is "partName" which is either "grip" or "deck"
-    // depending on the partName, we need to find the corresponding material index of the material that starts with "01_" or "02_"
-    /*
-    public int GetDeckMaterialIndex(string prefabTag, string partTag, string partName)
+        // list of all current decal hues
+    private readonly List<CurrentHue> _currentHues = new List<CurrentHue>();
+    private static readonly int DecalHue = Shader.PropertyToID("_Decal_Hue");
+
+    // change the hue of the decal
+    public void UpdateDecalHue(string partTag, int objMatIndex, int decalIndex, int hueValue)
     {
-        var mats = GetMaterials(prefabTag, partTag);
-        if (mats == null) return Error404; // Error404 as error code for no material found
-
-        var matIndex = Error404; // Error404 as error code for no material found
-
-        if (partName == "grip")
+        // Find the corresponding decal
+        var editedObjects = GameObject.FindGameObjectsWithTag(partTag);
+        foreach (var modelPart in editedObjects)
         {
-            for (var i = 0; i < mats.Count; i++)
+            Renderer modelRenderer = modelPart.GetComponent<Renderer>();
+            Material[] objMaterials = modelRenderer.materials;
+
+            // Check if the decal exists
+            if (objMaterials[objMatIndex].GetFloat(UseDecalTexture) == 1f)
             {
-                if (mats[i].material.name.StartsWith("01_"))
-                {
-                    matIndex = i;
-                    break;
-                }
-            }
-        }
-        else if (partName == "deck")
-        {
-            for (var i = 0; i < mats.Count; i++)
-            {
-                if (mats[i].material.name.StartsWith("02_"))
-                {
-                    matIndex = i;
-                    break;
-                }
+                // Update the hue of the decal
+                objMaterials[objMatIndex].SetInt(DecalHue, hueValue);
             }
         }
 
-        return matIndex;
+        // Update the hue in the _currentHues list
+        UpdateHueList(partTag, objMatIndex, decalIndex, hueValue);
     }
-    */
+
+    // Update the _currentHues list
+    public void UpdateHueList(string partTag, int objMatIndex, int decalIndex, int hueValue = 0)
+    {
+        // find the current hue in the list
+        CurrentHue currentHue = _currentHues.Find(hue => hue.partTag == partTag && hue.objMatIndex == objMatIndex && hue.matTexIndex == decalIndex);
+        if (currentHue == null)
+        {
+            currentHue = new CurrentHue { partTag = partTag, objMatIndex = objMatIndex, matTexIndex = decalIndex, hueIndex = hueValue };
+            _currentHues.Add(currentHue);
+        }
+        else
+        {
+            currentHue.hueIndex = hueValue;
+        }
+    }
+
+    public int GetHue(string partTag, int objMatIndex, int decalIndex)
+    {
+        // find the current hue in the list
+        var currentHue = _currentHues.Find(hue => hue.partTag == partTag && hue.objMatIndex == objMatIndex && hue.matTexIndex == decalIndex);
+        var hueValue = currentHue?.hueIndex ?? 0; // Use default hue value if CurrentHue object does not exist
+
+        return hueValue;
+    }
 }
