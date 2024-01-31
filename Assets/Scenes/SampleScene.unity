@@ -314,8 +314,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10232085}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.04981373, y: -0.000000029996965, z: 0.000000001496118, w: 0.99875855}
-  m_LocalPosition: {x: 0, y: -0.0020304024, z: 0.020303994}
+  m_LocalRotation: {x: 0.0498137, y: 1.0035568e-30, z: 1.6341097e-32, w: 0.99875855}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -486,7 +486,7 @@ ReflectionProbe:
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 503
   m_IntensityMultiplier: 1
   m_BlendDistance: 1
   m_HDR: 1
@@ -1799,12 +1799,12 @@ MonoBehaviour:
   m_BindingMode: 5
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 0.3901961
-    m_Radius: 0.4377811
-  - m_Height: 0.07613584
-    m_Radius: 0.6661885
+  - m_Height: 0.4497227
+    m_Radius: 0.504567
+  - m_Height: 0.08775078
+    m_Radius: 0.7678192
   - m_Height: 0
-    m_Radius: 0.3806792
+    m_Radius: 0.4387539
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 2005097878}
@@ -1819,7 +1819,7 @@ Transform:
   m_GameObject: {fileID: 141680356}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00005298853, y: -0.08664027, z: -0.30971456}
+  m_LocalPosition: {x: 0.04762444, y: -0.075025335, z: -0.39952415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2356,7 +2356,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.08736157, z: -0.4387922}
+  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -2579,7 +2579,7 @@ GameObject:
   - component: {fileID: 252173141}
   - component: {fileID: 252173143}
   - component: {fileID: 252173142}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Spot Light Extra 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3485,8 +3485,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.037553787, y: -0.24097762, z: 0.009331826, w: 0.969759}
-  m_LocalPosition: {x: 0.27578697, y: 0.11913584, z: -0.5723977}
+  m_LocalRotation: {x: 0.037553776, y: -0.24097762, z: 0.009331824, w: 0.969759}
+  m_LocalPosition: {x: 0.32335842, y: 0.13075078, z: -0.6622073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3818,8 +3818,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353947786}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.07998683, y: 0.0000000016556849, z: -1.3285863e-10, w: 0.99679595}
-  m_LocalPosition: {x: 0, y: 0.05563052, z: -0.121481806}
+  m_LocalRotation: {x: 0.031638555, y: 3e-45, z: -0, w: 0.9994994}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4876,8 +4876,8 @@ MonoBehaviour:
     m_InputAxisName: Mouse X
     m_InputAxisValue: 0
     m_InvertInput: 0
-    m_MinValue: -150
-    m_MaxValue: 150
+    m_MinValue: -88
+    m_MaxValue: 210
     m_Wrap: 0
     m_Recentering:
       m_enabled: 0
@@ -4898,12 +4898,12 @@ MonoBehaviour:
   m_BindingMode: 4
   m_SplineCurvature: 0.2
   m_Orbits:
-  - m_Height: 0.06346208
-    m_Radius: 0.2750024
-  - m_Height: 0.03173104
-    m_Radius: 0.3173104
+  - m_Height: 0.0753431
+    m_Radius: 0.3264868
+  - m_Height: 0.03767155
+    m_Radius: 0.3767155
   - m_Height: 0
-    m_Radius: 0.2644252
+    m_Radius: 0.3139294
   m_LegacyHeadingBias: 3.4028235e+38
   m_Rigs:
   - {fileID: 10232086}
@@ -4918,7 +4918,7 @@ Transform:
   m_GameObject: {fileID: 419445366}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.46681833, y: -0.15004507, z: -0.12455979}
+  m_LocalPosition: {x: -0.46681833, y: -0.14410456, z: -0.18396491}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5049,7 +5049,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452967482}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03755379, y: -0.24097764, z: 0.009331829, w: 0.9697589}
+  m_LocalRotation: {x: 0.037553784, y: -0.24097764, z: 0.009331826, w: 0.9697589}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5175,7 +5175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.08736157, z: -0.4387922}
+  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -5384,7 +5384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
+  m_FollowOffset: {x: 0, y: 0.08775078, z: -0.7678192}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -6790,7 +6790,7 @@ GameObject:
   - component: {fileID: 787014670}
   - component: {fileID: 787014672}
   - component: {fileID: 787014671}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Spot Light Extra 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6908,7 +6908,7 @@ GameObject:
   - component: {fileID: 801307529}
   - component: {fileID: 801307531}
   - component: {fileID: 801307530}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Spot Light Extra 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8492,8 +8492,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055177783}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.061890338, y: -0.000000002720515, z: 1.6869699e-10, w: 0.998083}
-  m_LocalPosition: {x: 0, y: 0.05563052, z: -0.121481806}
+  m_LocalRotation: {x: 0.013500976, y: -3.755085e-10, z: 5.0701947e-12, w: 0.99990886}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10236,7 +10236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.08736157, z: -0.4387922}
+  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -10790,7 +10790,7 @@ GameObject:
   - component: {fileID: 1327552421}
   - component: {fileID: 1327552420}
   - component: {fileID: 1327552419}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Spot Light Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11294,7 +11294,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
+  m_FollowOffset: {x: 0, y: 0.08775078, z: -0.7678192}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -13054,7 +13054,7 @@ GameObject:
   - component: {fileID: 1621085301}
   - component: {fileID: 1621085303}
   - component: {fileID: 1621085302}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Spot Light Extra 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13806,7 +13806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 5
-  m_FollowOffset: {x: 0, y: 0.07613584, z: -0.6661885}
+  m_FollowOffset: {x: 0, y: 0.08775078, z: -0.7678192}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -14387,7 +14387,7 @@ GameObject:
   - component: {fileID: 1899077706}
   - component: {fileID: 1899077705}
   - component: {fileID: 1899077704}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: Spot Light Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15085,7 +15085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005097877}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.055186994, y: -0.24076805, z: 0.013713544, w: 0.9689154}
+  m_LocalRotation: {x: 0.055187, y: -0.24076805, z: 0.013713544, w: 0.96891546}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15772,7 +15772,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129349658}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.037337594, y: -0.24097975, z: -0.009278106, w: 0.96976733}
+  m_LocalRotation: {x: -0.02972592, y: -0.24104512, z: -0.0073866635, w: 0.9700305}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
