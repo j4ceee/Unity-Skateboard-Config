@@ -288,21 +288,23 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 				if (modelTag == modelPart.modelTag)
 				{
 					objMatIndex = modelPart.partMatIndex;
-				}
-			}
-			// for every modelTag, check if a material has already been selected
-			var materialIndex = materialSwitcher.GetCurrentMaterial(currentPrefabTag, modelTag, objMatIndex); // update material of mod to match the selected wheels
-			if (materialIndex != 999) // if a material has already been selected
-			{
-				materialSwitcher.ChangeMaterial(currentPrefabTag, modelTag, materialIndex, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
-			}
 
-			// for every modelTag, check if a decal has already been selected
-			var decalIndex = materialSwitcher.GetCurrentDecal(modelTag, objMatIndex); // update decal of wheels (and bearings) to match the selected wheels
-			if (decalIndex != 999) // if a decal has already been selected
-			{
-				StartCoroutine(ApplyDecalsAfterDelay(currentPrefabTag, modelTag, decalIndex, objMatIndex)); // decals need to be applied after a delay, otherwise they won't show up (materials are instantiated immediately, but not decals)
-				//materialSwitcher.ChangeDecal(_currentLoadedWheels[0].tag, wheelTag, decalIndex); // update decal of wheels (and bearings) to match the selected wheels
+					// for every modelTag, check if a material has already been selected
+					var materialIndex = materialSwitcher.GetCurrentMaterial(currentPrefabTag, modelTag, objMatIndex); // update material of mod to match the selected wheels
+					if (materialIndex != 999) // if a material has already been selected
+					{
+						materialSwitcher.ChangeMaterial(currentPrefabTag, modelTag, materialIndex, objMatIndex); // update material of wheels (and bearings) to match the selected wheels
+					}
+
+					// for every modelTag, check if a decal has already been selected
+					var decalIndex = materialSwitcher.GetCurrentDecal(modelTag, objMatIndex); // update decal of wheels (and bearings) to match the selected wheels
+					// Debug.Log("decalIndex: " + decalIndex + " modelTag: " + modelTag + " objMatIndex: " + objMatIndex + " currentPrefabTag: " + currentPrefabTag + " currentModelTags: " + currentModelTags);
+					if (decalIndex != 999) // if a decal has already been selected
+					{
+						StartCoroutine(ApplyDecalsAfterDelay(currentPrefabTag, modelTag, decalIndex, objMatIndex)); // decals need to be applied after a delay, otherwise they won't show up (materials are instantiated immediately, but not decals)
+						//materialSwitcher.ChangeDecal(_currentLoadedWheels[0].tag, wheelTag, decalIndex); // update decal of wheels (and bearings) to match the selected wheels
+					}
+				}
 			}
 		}
 	}

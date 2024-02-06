@@ -314,7 +314,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 10232085}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0498137, y: -3e-45, z: -0, w: 0.99875855}
+  m_LocalRotation: {x: 0.0498137, y: -1e-45, z: -0, w: 0.99875855}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1189,7 +1189,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -91.51, y: 16}
+  m_AnchoredPosition: {x: -101.5, y: 16}
   m_SizeDelta: {x: 54, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &101317114
@@ -2370,7 +2370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
+  m_FollowOffset: {x: 0, y: 0.03684831, z: -0.3684832}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -3356,7 +3356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.037553776, y: -0.24097762, z: 0.009331824, w: 0.969759}
+  m_LocalRotation: {x: 0.037553776, y: -0.24097769, z: 0.009331827, w: 0.969759}
   m_LocalPosition: {x: 0.32335842, y: 0.13075078, z: -0.6622073}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3689,8 +3689,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353947786}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.031638555, y: -0, z: -0, w: 0.9994994}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.03163854, y: 0.0000000037234258, z: -1.1786276e-10, w: 0.9994994}
+  m_LocalPosition: {x: 0, y: -0.00082324445, z: 0.008232325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4921,7 +4921,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 452967482}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.037553784, y: -0.24097764, z: 0.009331826, w: 0.9697589}
+  m_LocalRotation: {x: 0.037553776, y: -0.24097767, z: 0.009331825, w: 0.969759}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5047,7 +5047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
+  m_FollowOffset: {x: 0, y: 0.03684831, z: -0.3684832}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -8691,8 +8691,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055177783}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.013500975, y: -9.755841e-10, z: 1.3172538e-11, w: 0.99990886}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.013500962, y: 1.7115286e-10, z: -2.3109407e-12, w: 0.99990886}
+  m_LocalPosition: {x: 0, y: -0.00082324445, z: 0.008232325}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10435,7 +10435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 4
-  m_FollowOffset: {x: 0, y: 0.03767155, z: -0.3767155}
+  m_FollowOffset: {x: 0, y: 0.03684831, z: -0.3684832}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -11966,7 +11966,13 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 43ce3ec48cb4c1241baf3588e0aed21b, type: 2}
     uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
     uiSpriteColor: {r: 0.071422204, g: 0.08033056, b: 0.14150941, a: 1}
-  classicDeckGripDecals: []
+  classicDeckGripDecals:
+  - uiName: Street Pulse
+    texture: {fileID: 2800000, guid: 5abe2931b74ab67408fccdc8c92518f5, type: 3}
+    uiSprite: {fileID: 1302778521, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: RideRevolt
+    texture: {fileID: 2800000, guid: 52e9baf4a12295a43859c9148a3f2fc4, type: 3}
+    uiSprite: {fileID: -539358992, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
   classicDeckBottomMaterials:
   - uiName: Default
     material: {fileID: 2100000, guid: e8ec4bb6f1d063548923fbd0d7e064a0, type: 2}
@@ -12018,7 +12024,13 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 6031f2d68cbf82a4a91fe8b928394c38, type: 2}
     uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
     uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
-  longboardDeckGripDecals: []
+  longboardDeckGripDecals:
+  - uiName: Street Pulse
+    texture: {fileID: 2800000, guid: ad6710b71b6df8942a14890190a99e85, type: 3}
+    uiSprite: {fileID: 1302778521, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: RideRevolt
+    texture: {fileID: 2800000, guid: 912cd439d236c214e8d20ca71f2f4476, type: 3}
+    uiSprite: {fileID: -539358992, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
   longboardDeckBottomMaterials:
   - uiName: Default
     material: {fileID: 2100000, guid: aab51170ae501604487c2d82c7f3e040, type: 2}
@@ -12070,7 +12082,13 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: ce633bd5e628fc74ea96cb6d50265fbd, type: 2}
     uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
     uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
-  roundtailDeckGripDecals: []
+  roundtailDeckGripDecals:
+  - uiName: Street Pulse
+    texture: {fileID: 2800000, guid: 44c18e2e441c3b244aa4466cf77f3f6b, type: 3}
+    uiSprite: {fileID: 1302778521, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: RideRevolt
+    texture: {fileID: 2800000, guid: cbda13aa67fe4884982d649cea4993ed, type: 3}
+    uiSprite: {fileID: -539358992, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
   roundtailDeckBottomMaterials:
   - uiName: Default
     material: {fileID: 2100000, guid: 9055cf85778312a4dbab80bc8fc6bf7c, type: 2}
@@ -12122,7 +12140,13 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: b87654958cf0d1944adfe441288b4032, type: 2}
     uiSprite: {fileID: 21300000, guid: 3019f3c0d602ada4aad1575f750c7cd5, type: 3}
     uiSpriteColor: {r: 0.07058824, g: 0.078431375, b: 0.14117648, a: 1}
-  oldschoolDeckGripDecals: []
+  oldschoolDeckGripDecals:
+  - uiName: Street Pulse
+    texture: {fileID: 2800000, guid: 39955bd11c18c4d4bb643cf96157f139, type: 3}
+    uiSprite: {fileID: 1302778521, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
+  - uiName: RideRevolt
+    texture: {fileID: 2800000, guid: 8c05186fcbd09d944ab844368531657a, type: 3}
+    uiSprite: {fileID: -539358992, guid: 53009d8df3db6a84a88389db4690fab5, type: 3}
   oldschoolDeckBottomMaterials:
   - uiName: Default
     material: {fileID: 2100000, guid: 260feacd521e0e147a0a9913a639c94e, type: 2}
@@ -15549,7 +15573,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2005097877}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.055186998, y: -0.24076805, z: 0.013713544, w: 0.96891546}
+  m_LocalRotation: {x: 0.05518698, y: -0.24076805, z: 0.013713541, w: 0.96891546}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16236,7 +16260,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129349658}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.02972592, y: -0.2410451, z: -0.0073866625, w: 0.9700305}
+  m_LocalRotation: {x: -0.02972592, y: -0.24104512, z: -0.0073866635, w: 0.9700304}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16278,7 +16302,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -24.01}
+  m_AnchoredPosition: {x: 0, y: -32}
   m_SizeDelta: {x: 6000, y: 43.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2143778786
