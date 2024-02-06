@@ -72,6 +72,12 @@ public class MaterialSwitcher : MonoBehaviour
     public List<MaterialPairList> bearingLongMaterials = new List<MaterialPairList>(); // get all materials for longboard bearings
     [Tooltip("Put all decal textures for the longboard bearings here in the same order as for default bearings.")]
     public List<TexturePairList> bearingLongDecals = new List<TexturePairList>(); // get all decals for longboard bearings
+    
+    // Materials & Decals Lists for Axle-------------------------------------------------------------
+    [Tooltip("Put all materials for the axle here. First will be the default material, others will be material variants. Supported: 8")]
+    public List<MaterialPairList> axleMaterials = new List<MaterialPairList>(); // get all materials for axle
+    [Tooltip("Put all decal textures for the axle here in the same order as for others.")]
+    public List<TexturePairList> axleDecals = new List<TexturePairList>(); // get all decals for axle
 
     // Materials & Decals Lists for Classic Deck----------------------------------------------------
     [Tooltip("Put all materials for the classic deck grip here. First will be the default material, others will be material variants. Supported: 8")]
@@ -218,6 +224,7 @@ public class MaterialSwitcher : MonoBehaviour
         switch (modelTag)
         {
             case AxleMain:
+                matList = axleMaterials;
                 break; // TODO: add axle materials
             case BearingCap:
                 if (prefabTag == _defWheelTag)
@@ -443,6 +450,7 @@ public class MaterialSwitcher : MonoBehaviour
         switch (modelTag)
         {
             case AxleMain:
+                decalList = axleDecals;
                 break; // TODO: add axle materials
             case BearingCap:
                 if (prefabTag == _defWheelTag)

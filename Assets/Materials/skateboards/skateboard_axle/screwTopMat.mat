@@ -107,6 +107,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
+    - _Enable_Overlay_Texture: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 1
     - _Glossiness: 0.5656854
@@ -115,6 +116,8 @@ Material:
     - _Mode: 0
     - _Noise_Size: 436
     - _Noise_Strength: 0.0165
+    - _Normal_Noise_Size: 100
+    - _Normal_Noise_Strength: 0.05
     - _OcclusionStrength: 1
     - _Occlusion_Strength: 1
     - _Overlay_Strength: 1
@@ -122,8 +125,10 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _Smoothness: 0.733
+    - _Smoothness: 0.852
     - _SmoothnessTextureChannel: 0
+    - _Smoothness_Noise_Power: 1.19
+    - _Smoothness_Noise_Size: 100
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
