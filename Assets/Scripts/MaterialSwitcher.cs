@@ -42,6 +42,8 @@ public class CurrentHue
 
 public class MaterialSwitcher : MonoBehaviour
 {
+    // TODO: merge the lists of materials and decals for models that share the same materials and decals
+
     // Materials & Decals Lists for Default Wheels--------------------------------------------------
     [Tooltip("Put all materials for the default wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelDefaultMaterials = new List<MaterialPairList>(); // get all materials for default wheels
@@ -119,17 +121,12 @@ public class MaterialSwitcher : MonoBehaviour
     public const int Error404 = 999;
 
 
-    // Start is called before the first frame update
-    private void Start()
-    {
-    }
-
     /*
      * UI Functionality
      */
     public List<TagDisplayNames> GiveModelPartsOptions(string currPrefabTag)
     {
-        List<TagDisplayNames> selectionCol = null; // default selection
+        List<TagDisplayNames> selectionCol; // default selection
 
         foreach (var deckPrefTag in SharedTags.DeckPrefTags)
         {
@@ -157,8 +154,11 @@ public class MaterialSwitcher : MonoBehaviour
 
         switch (modelTag)
         {
+            // get materials for the selected model part
+            // start with wheel models
             case SharedTags.AxleMain:
                 matList = isMaterial ? axleMaterials.Cast<MatPairBase>().ToList() : axleDecals.Cast<MatPairBase>().ToList();
+                // set matList depending on whether it's a material or a deca
                 break;
             case SharedTags.BearingCap:
                 if (prefabTag == SharedTags.DefWheelPrefTag)
@@ -180,9 +180,12 @@ public class MaterialSwitcher : MonoBehaviour
                     matList = isMaterial ? wheelLongMaterials.Cast<MatPairBase>().ToList() : wheelLongDecals.Cast<MatPairBase>().ToList();
                 }
                 break;
+            // then continue with deck models
             case SharedTags.Board:
+                // check whether the selected model part is the grip or the bottom, here: grip
                 if (objMatIndex == SharedTags.DeckModelParts[0].partMatIndex)
                 {
+                    // get the materials for the grip depending on the deck type and whether it's a material or a decal
                     if (prefabTag == SharedTags.DefDeckPrefTag)
                     {
                         matList = isMaterial ? classicDeckGripMaterials.Cast<MatPairBase>().ToList() : classicDeckGripDecals.Cast<MatPairBase>().ToList();
@@ -200,8 +203,10 @@ public class MaterialSwitcher : MonoBehaviour
                         matList = isMaterial ? oldschoolDeckGripMaterials.Cast<MatPairBase>().ToList() : oldschoolDeckGripDecals.Cast<MatPairBase>().ToList();
                     }
                 }
+                // if it's not the grip, it's the bottom
                 else if (objMatIndex == SharedTags.DeckModelParts[1].partMatIndex)
                 {
+                    // get the materials for the bottom depending on the deck type and whether it's a material or a decal
                     if (prefabTag == SharedTags.DefDeckPrefTag)
                     {
                         matList = isMaterial ? classicDeckBottomMaterials.Cast<MatPairBase>().ToList() : classicDeckBottomDecals.Cast<MatPairBase>().ToList();
@@ -247,7 +252,7 @@ public class MaterialSwitcher : MonoBehaviour
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag); // get all objects with the same tag
 
-        if (mats == null || editedObjects == null) return; // if no materials or objects were found, abort
+        if (editedObjects == null) return; // if no materials or objects were found, abort
 
         // change material of all objects with the same tag
         foreach (var modelPart in editedObjects) // iterate through all objects with the same tag
@@ -385,7 +390,7 @@ public class MaterialSwitcher : MonoBehaviour
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag);
 
-        if (currDecalList == null || editedObjects == null) return; // if no decals or objects were found, abort
+        if (editedObjects == null) return; // if no decals or objects were found, abort
 
         // change decal of all objects with the same tag
         foreach (var modelPart in editedObjects)
