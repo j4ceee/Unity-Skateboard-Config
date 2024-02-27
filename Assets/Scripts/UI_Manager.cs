@@ -195,6 +195,9 @@ public class UIManager : MonoBehaviour
     public GameObject dropdownObject;
 
     private List<TagDisplayNames> _currentOptions = new List<TagDisplayNames>(); // keep track of current options
+    private List<TagDisplayNames> _previousOptions = new List<TagDisplayNames>(); // keep track of previous options
+
+    private int _currentDropdownIndex; // store current dropdown index
 
     private TMP_Dropdown _materialDropdown; // store dropdown component of dropdownObject
     private TextMeshProUGUI _labelText;
@@ -219,11 +222,14 @@ public class UIManager : MonoBehaviour
     {
         // if there are any dropdown options, destroy them before adding new ones
         _partMatIndex = 0;
+
+        // save previous dropdown options
+        _previousOptions = new List<TagDisplayNames>(_currentOptions);
+
         _partTag = "";
         _currentOptions.Clear(); // clear current options
         _materialDropdown.ClearOptions(); // clear dropdown options
         _materialDropdown.options.Insert(0, new TMP_Dropdown.OptionData("None")); // add placeholder option
-        _materialDropdown.value = 0; // Set the dropdown to show the placeholder by default
         if (_labelText != null)
         {
             // Set initial text
@@ -236,7 +242,7 @@ public class UIManager : MonoBehaviour
             new List<TagDisplayNames>(
                 materialSwitcher.GiveModelPartsOptions(selectedPrefabTag)); // get options from MaterialSwitcher script
 
-        if (_currentOptions == null) return; // if there are no options, return (no need to populate dropdown
+        if (_currentOptions == null) return; // if there are no options, return (no need to populate dropdown)
 
         foreach (var option in _currentOptions)
         {
@@ -244,6 +250,19 @@ public class UIManager : MonoBehaviour
         }
 
         _currentPrefabTag = selectedPrefabTag; // save current prefab tag
+
+        // Set the dropdown to show the previously selected option
+
+        // compare previous and current options
+        for (var i = 1; i < _previousOptions.Count; i++)
+        {
+            if (_previousOptions[i].modelTag == _currentOptions[i].modelTag) continue;
+            _materialDropdown.value = 0; // set the dropdown to show the placeholder by default
+            _currentDropdownIndex = 0; // store current dropdown index
+            return;
+        }
+
+        _materialDropdown.value = _currentDropdownIndex; // set the dropdown to show the previously selected option
     }
 
     private void AddDropdownOptions(string uiName) // add options to dropdown
@@ -259,6 +278,8 @@ public class UIManager : MonoBehaviour
             Debug.LogError("Invalid dropdown option selected");
             return;
         }
+
+        _currentDropdownIndex = index; // store current dropdown index
 
         if (index == 0) // if placeholder is selected
         {
