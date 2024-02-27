@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -235,6 +236,8 @@ public class UIManager : MonoBehaviour
             new List<TagDisplayNames>(
                 materialSwitcher.GiveModelPartsOptions(selectedPrefabTag)); // get options from MaterialSwitcher script
 
+        if (_currentOptions == null) return; // if there are no options, return (no need to populate dropdown
+
         foreach (var option in _currentOptions)
         {
             AddDropdownOptions(option.uiName);
@@ -321,7 +324,8 @@ public class UIManager : MonoBehaviour
 
     private void PopulateMaterialPicker() // populate the material picker with the materials of the selected tag
     {
-        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterials(_currentPrefabTag, _partTag, _partMatIndex)); // get materials from MaterialSwitcher script & store them in a new list
+        _availableMaterials = new List<MaterialPairList>(materialSwitcher.GetMaterialsOrDecals(_currentPrefabTag, _partTag, _partMatIndex, true).Cast<MaterialPairList>()); // get materials from MaterialSwitcher script & store them in a new list
+        // GetMaterialsOrDecals returns a list of MaterialPairList objects, but we only want the materials, so we cast them to MaterialPairList
 
         if (_availableMaterials != null)
         {
@@ -445,7 +449,7 @@ public class UIManager : MonoBehaviour
         decalHueSlider.SetActive(false); // hide decal hue slider
         decalHueSlider.GetComponent<Slider>().value = 0; // reset decal hue slider value
 
-        var tmpList = materialSwitcher.GetDecals(_currentPrefabTag, _partTag, _partMatIndex); // get decals from MaterialSwitcher script
+        var tmpList = materialSwitcher.GetMaterialsOrDecals(_currentPrefabTag, _partTag, _partMatIndex, false).Cast<TexturePairList>(); // get decals from MaterialSwitcher script
         _availableDecals = new List<TexturePairList>(tmpList); // get decals from MaterialSwitcher script & store them in a new list
 
         if (_availableDecals != null)
