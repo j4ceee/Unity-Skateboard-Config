@@ -13,5 +13,7 @@ public class StartupSetup : MonoBehaviour
         modelSwitcher.init_board(); // call the init_board method from the ModelSwitcher script
 
         Shader.WarmupAllShaders();
+
+        SharedTags.InitTags();
     }
 }

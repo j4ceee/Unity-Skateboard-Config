@@ -1,29 +1,25 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [System.Serializable]
-public class MaterialPairList
+public class MatPairBase
 {
     public string uiName; // name to display in UI
-    public Material material; // material to apply to the model
     public Sprite uiSprite; // sprite to display in UI
+}
+
+[System.Serializable]
+public class MaterialPairList : MatPairBase
+{
+    public Material material; // material to apply to the model
     public Color uiSpriteColor; // color of the sprite in the UI
 }
 
 [System.Serializable]
-public class TexturePairList
+public class TexturePairList : MatPairBase
 {
-    public string uiName; // name to display in UI
     public Texture2D texture; // texture to apply to the material
-    public Sprite uiSprite; // sprite to display in UI (colour not necessary, as the texture is already coloured / supposed to be greyscale)
-}
-
-[System.Serializable]
-public class TagDisplayNames
-{
-    public string modelTag; // tag of the prefab
-    public int partMatIndex; // index of the material in the list of materials for the model
-    public string uiName; // name to display in UI
 }
 
 [System.Serializable]
@@ -46,9 +42,6 @@ public class CurrentHue
 
 public class MaterialSwitcher : MonoBehaviour
 {
-    public ModelSwitcher modelSwitcher;
-    public UIManager uiManager;
-
     // Materials & Decals Lists for Default Wheels--------------------------------------------------
     [Tooltip("Put all materials for the default wheels here. First will be the default material, others will be material variants. Supported: 8")]
     public List<MaterialPairList> wheelDefaultMaterials = new List<MaterialPairList>(); // get all materials for default wheels
@@ -123,174 +116,107 @@ public class MaterialSwitcher : MonoBehaviour
     [Tooltip("Put all decal textures for the oldschool deck bottom here in the same order as for others decks.")]
     public List<TexturePairList> oldschoolDeckBottomDecals = new List<TexturePairList>(); // get all decals for oldschool deck
 
-    private readonly List<TagDisplayNames> _wheelTags = new List<TagDisplayNames>(); // list of wheel tags and their corresponding UI names
-    private readonly List<TagDisplayNames> _deckDefTags = new List<TagDisplayNames>(); // list of deck tags and their corresponding UI names
-    private readonly List<TagDisplayNames> _deckLongTags = new List<TagDisplayNames>();
-    private readonly List<TagDisplayNames> _deckRoundTags = new List<TagDisplayNames>();
-    private readonly List<TagDisplayNames> _deckOldTags = new List<TagDisplayNames>();
-
-    private const string AxleMain = "axle_main";
-    // private const string AxleBase = "axle_base";
-    private const string BearingCap = "bearing_cap";
-    private const string Wheel = "wheel";
-
-    private const string Board = "board";
-
-    private static readonly string[] UniqueMaterialTags = new string[] { Wheel }; // tags of prefabs that have a unique material for each prefab (e.g. wheels)
-
-    private string _defWheelTag;
-    private string _longWheelTag;
-    private string _defDeckTag;
-    private string _longDeckTag;
-    private string _roundDeckTag;
-    private string _oldDeckTag;
-
     public const int Error404 = 999;
 
 
     // Start is called before the first frame update
     private void Start()
     {
-        _wheelTags.Add(new TagDisplayNames { modelTag = AxleMain, partMatIndex = 1, uiName = "Axle" });
-        // _wheelTags.Add(new TagDisplayNames { modelTag = AxleBase, uiName = "Axle Base" });
-        _wheelTags.Add(new TagDisplayNames { modelTag = BearingCap, partMatIndex = 0, uiName = "Bearings" });
-        _wheelTags.Add(new TagDisplayNames { modelTag = Wheel, partMatIndex = 0, uiName = "Wheels" });
-
-
-        _deckDefTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
-        _deckDefTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
-
-        _deckLongTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
-        _deckLongTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
-
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
-        _deckRoundTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
-
-        _deckOldTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 2, uiName = "Grip" });
-        _deckOldTags.Add(new TagDisplayNames { modelTag = Board, partMatIndex = 1, uiName = "Deck" });
-
-        _defWheelTag = modelSwitcher.wheelPrefabs.defaultWheelPrefab.tag;
-        _longWheelTag = modelSwitcher.wheelPrefabs.longboardWheelPrefab.tag;
-        _defDeckTag = modelSwitcher.deckPrefabs.classicDeckPrefab.tag;
-        _longDeckTag = modelSwitcher.deckPrefabs.longboardDeckPrefab.tag;
-        _roundDeckTag = modelSwitcher.deckPrefabs.roundtailDeckPrefab.tag;
-        _oldDeckTag = modelSwitcher.deckPrefabs.oldschoolDeckPrefab.tag;
     }
 
     /*
      * UI Functionality
      */
-    public IEnumerable<TagDisplayNames> GiveModelPartsOptions(string currPrefabTag)
+    public List<TagDisplayNames> GiveModelPartsOptions(string currPrefabTag)
     {
-        // Debug.Log("" + _defDeckTag);
-        // TODO: check each prefab tag initialized in Start() for null (when calling GiveModelPartsOptions() immediately after startup, Start() has not been called yet)
+        List<TagDisplayNames> selectionCol = null; // default selection
 
-        var selectionCol = _deckDefTags;
-
-        // compare current prefab tag to all possible prefab tags
-        if (currPrefabTag == _defDeckTag)
+        foreach (var deckPrefTag in SharedTags.DeckPrefTags)
         {
-            // do nothing, _deckDefTags is selected by default
-        }
-        else if (currPrefabTag == _longDeckTag)
-        {
-            selectionCol = _deckLongTags;
-        }
-        else if (currPrefabTag == _roundDeckTag)
-        {
-            selectionCol = _deckRoundTags;
-        }
-        else if (currPrefabTag == _oldDeckTag)
-        {
-            selectionCol = _deckOldTags;
-        }
-        else if (currPrefabTag == _defWheelTag || currPrefabTag == _longWheelTag)
-        {
-            selectionCol = _wheelTags;
-        }
-        else
-        {
-            Debug.LogError("Invalid prefab tag given to MaterialSwitcher.");
+            if (currPrefabTag != deckPrefTag) continue;
+            selectionCol = SharedTags.DeckModelParts;
+            return selectionCol;
         }
 
-        return selectionCol;
+        foreach (var wheelPrefTag in SharedTags.WheelPrefTags)
+        {
+            if (currPrefabTag != wheelPrefTag) continue;
+            selectionCol = SharedTags.WheelModelParts;
+            return selectionCol;
+        }
+
+        Debug.LogError("Invalid prefab tag given to MaterialSwitcher.");
+
+        return null;
     }
 
-    public List<MaterialPairList> GetMaterials(string prefabTag, string modelTag, int objMatIndex) // gives the materials for the selected model part
+    public List<MatPairBase> GetMaterialsOrDecals(string prefabTag, string modelTag, int objMatIndex, bool isMaterial) // gives the materials for the selected model part
     {
-        List<MaterialPairList> matList = null;
+        List<MatPairBase> matList = null;
         // Debug.Log("Getting materials for " + modelTag + " at material slot " + objMatIndex);
 
         switch (modelTag)
         {
-            case AxleMain:
-                matList = axleMaterials;
-                break; // TODO: add axle materials
-            case BearingCap:
-                if (prefabTag == _defWheelTag)
+            case SharedTags.AxleMain:
+                matList = isMaterial ? axleMaterials.Cast<MatPairBase>().ToList() : axleDecals.Cast<MatPairBase>().ToList();
+                break;
+            case SharedTags.BearingCap:
+                if (prefabTag == SharedTags.DefWheelPrefTag)
                 {
-                    matList = bearingDefaultMaterials;
+                    matList = isMaterial ? bearingDefaultMaterials.Cast<MatPairBase>().ToList() : bearingDefaultDecals.Cast<MatPairBase>().ToList();
                 }
-                else if (prefabTag == _longWheelTag)
+                else if (prefabTag == SharedTags.LongWheelPrefTag)
                 {
-                    matList = bearingLongMaterials;
+                    matList = isMaterial ? bearingLongMaterials.Cast<MatPairBase>().ToList() : bearingLongDecals.Cast<MatPairBase>().ToList();
                 }
                 break;
-            case Wheel:
-                if (prefabTag == _defWheelTag)
+            case SharedTags.Wheel:
+                if (prefabTag == SharedTags.DefWheelPrefTag)
                 {
-                    matList = wheelDefaultMaterials;
+                    matList = isMaterial ? wheelDefaultMaterials.Cast<MatPairBase>().ToList() : wheelDefaultDecals.Cast<MatPairBase>().ToList();
                 }
-                else if (prefabTag == _longWheelTag)
+                else if (prefabTag == SharedTags.LongWheelPrefTag)
                 {
-                    matList = wheelLongMaterials;
+                    matList = isMaterial ? wheelLongMaterials.Cast<MatPairBase>().ToList() : wheelLongDecals.Cast<MatPairBase>().ToList();
                 }
                 break;
-            case Board:
-                if (prefabTag == _defDeckTag)
+            case SharedTags.Board:
+                if (objMatIndex == SharedTags.DeckModelParts[0].partMatIndex)
                 {
-                    if (objMatIndex == _deckDefTags[0].partMatIndex)
+                    if (prefabTag == SharedTags.DefDeckPrefTag)
                     {
-                        matList = classicDeckGripMaterials;
+                        matList = isMaterial ? classicDeckGripMaterials.Cast<MatPairBase>().ToList() : classicDeckGripDecals.Cast<MatPairBase>().ToList();
                     }
-                    else if (objMatIndex == _deckDefTags[1].partMatIndex)
+                    else if (prefabTag == SharedTags.LongDeckPrefTag)
                     {
-                        matList = classicDeckBottomMaterials;
+                        matList = isMaterial ? longboardDeckGripMaterials.Cast<MatPairBase>().ToList() : longboardDeckGripDecals.Cast<MatPairBase>().ToList();
+                    }
+                    else if (prefabTag == SharedTags.RoundDeckPrefTag)
+                    {
+                        matList = isMaterial ? roundtailDeckGripMaterials.Cast<MatPairBase>().ToList() : roundtailDeckGripDecals.Cast<MatPairBase>().ToList();
+                    }
+                    else if (prefabTag == SharedTags.OldDeckPrefTag)
+                    {
+                        matList = isMaterial ? oldschoolDeckGripMaterials.Cast<MatPairBase>().ToList() : oldschoolDeckGripDecals.Cast<MatPairBase>().ToList();
                     }
                 }
-                else if (prefabTag == _longDeckTag)
+                else if (objMatIndex == SharedTags.DeckModelParts[1].partMatIndex)
                 {
-                    if (objMatIndex == _deckLongTags[0].partMatIndex)
+                    if (prefabTag == SharedTags.DefDeckPrefTag)
                     {
-                        matList = longboardDeckGripMaterials;
-                        // Debug.Log("Found longboard deck grip materials.");
+                        matList = isMaterial ? classicDeckBottomMaterials.Cast<MatPairBase>().ToList() : classicDeckBottomDecals.Cast<MatPairBase>().ToList();
                     }
-                    else if (objMatIndex == _deckLongTags[1].partMatIndex)
+                    else if (prefabTag == SharedTags.LongDeckPrefTag)
                     {
-                        matList = longboardDeckBottomMaterials;
-                        // Debug.Log("Found longboard deck bottom materials.");
+                        matList = isMaterial ? longboardDeckBottomMaterials.Cast<MatPairBase>().ToList() : longboardDeckBottomDecals.Cast<MatPairBase>().ToList();
                     }
-                }
-                else if (prefabTag == _roundDeckTag)
-                {
-                    if (objMatIndex == _deckRoundTags[0].partMatIndex)
+                    else if (prefabTag == SharedTags.RoundDeckPrefTag)
                     {
-                        matList = roundtailDeckGripMaterials;
+                        matList = isMaterial ? roundtailDeckBottomMaterials.Cast<MatPairBase>().ToList() : roundtailDeckBottomDecals.Cast<MatPairBase>().ToList();
                     }
-                    else if (objMatIndex == _deckRoundTags[1].partMatIndex)
+                    else if (prefabTag == SharedTags.OldDeckPrefTag)
                     {
-                        matList = roundtailDeckBottomMaterials;
-                    }
-                }
-                else if (prefabTag == _oldDeckTag)
-                {
-                    if (objMatIndex == _deckOldTags[0].partMatIndex)
-                    {
-                        matList = oldschoolDeckGripMaterials;
-                    }
-                    else if (objMatIndex == _deckOldTags[1].partMatIndex)
-                    {
-                        matList = oldschoolDeckBottomMaterials;
+                        matList = isMaterial ? oldschoolDeckBottomMaterials.Cast<MatPairBase>().ToList() : oldschoolDeckBottomDecals.Cast<MatPairBase>().ToList();
                     }
                 }
                 break;
@@ -314,7 +240,10 @@ public class MaterialSwitcher : MonoBehaviour
     {
         //debug_currentMaterials();
 
-        var mats = GetMaterials(prefabTag, modelTag, objMatIndex);
+        var mats = GetMaterialsOrDecals(prefabTag, modelTag, objMatIndex, true).Cast<MaterialPairList>().ToList();
+        // returns list of MatPairBase objects
+        // --> convert to list of MaterialPairList objects
+
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag); // get all objects with the same tag
 
@@ -343,7 +272,7 @@ public class MaterialSwitcher : MonoBehaviour
         // save current material
         bool unique = false;
 
-        foreach (var uniqueTag in UniqueMaterialTags) // check if material is unique across different prefabs
+        foreach (var uniqueTag in SharedTags.UniqueMaterialTags) // check if material is unique across different prefabs
         {
             if (modelTag == uniqueTag)
             {
@@ -392,7 +321,7 @@ public class MaterialSwitcher : MonoBehaviour
         // Debug.Log("Change Material - Model Tag: " + partTag + " / Prefab Tag: " + prefabTag + " / Material slot: " + objMatIndex + ".");
         bool unique = false;
 
-        foreach (var uniqueTag in UniqueMaterialTags) // check if material is unique across different prefabs
+        foreach (var uniqueTag in SharedTags.UniqueMaterialTags) // check if material is unique across different prefabs
         {
             if (partTag == uniqueTag)
             {
@@ -443,89 +372,8 @@ public class MaterialSwitcher : MonoBehaviour
     /*
      * Decal Functionality #######################################################
      */
-    public List<TexturePairList> GetDecals(string prefabTag, string modelTag, int objMatIndex) // gives the materials for the selected model part
-    {
-        List<TexturePairList> decalList = null;
 
-        switch (modelTag)
-        {
-            case AxleMain:
-                decalList = axleDecals;
-                break; // TODO: add axle materials
-            case BearingCap:
-                if (prefabTag == _defWheelTag)
-                {
-                    decalList = bearingDefaultDecals;
-                }
-                else if (prefabTag == _longWheelTag)
-                {
-                    decalList = bearingLongDecals;
-                }
-                break;
-            case Wheel:
-                if (prefabTag == _defWheelTag)
-                {
-                    decalList = wheelDefaultDecals;
-                }
-                else if (prefabTag == _longWheelTag)
-                {
-                    decalList = wheelLongDecals;
-                }
-                break;
-            case Board:
-                if (prefabTag == _defDeckTag)
-                {
-                    if (objMatIndex == _deckDefTags[0].partMatIndex)
-                    {
-                        decalList = classicDeckGripDecals;
-                    }
-                    else if (objMatIndex == _deckDefTags[1].partMatIndex)
-                    {
-                        decalList = classicDeckBottomDecals;
-                    }
-                }
-                else if (prefabTag == _longDeckTag)
-                {
-                    if (objMatIndex == _deckLongTags[0].partMatIndex)
-                    {
-                        decalList = longboardDeckGripDecals;
-                    }
-                    else if (objMatIndex == _deckLongTags[1].partMatIndex)
-                    {
-                        decalList = longboardDeckBottomDecals;
-                    }
-                }
-                else if (prefabTag == _roundDeckTag)
-                {
-                    if (objMatIndex == _deckRoundTags[0].partMatIndex)
-                    {
-                        decalList = roundtailDeckGripDecals;
-                    }
-                    else if (objMatIndex == _deckRoundTags[1].partMatIndex)
-                    {
-                        decalList = roundtailDeckBottomDecals;
-                    }
-                }
-                else if (prefabTag == _oldDeckTag)
-                {
-                    if (objMatIndex == _deckOldTags[0].partMatIndex)
-                    {
-                        decalList = oldschoolDeckGripDecals;
-                    }
-                    else if (objMatIndex == _deckOldTags[1].partMatIndex)
-                    {
-                        decalList = oldschoolDeckBottomDecals;
-                    }
-                }
-                break;
-        }
-        if (decalList == null)
-        {
-            Debug.LogError("No decals found for " + modelTag + " at material slot " + objMatIndex);
-        }
-
-        return decalList;
-    }
+    // Get Decals is part of GetMaterialsOrDecals()
 
     // Store all current decals
     private readonly List<CurrentSelection> _currentDecals = new List<CurrentSelection>();
@@ -533,7 +381,7 @@ public class MaterialSwitcher : MonoBehaviour
 
     public void ChangeDecal(string prefabTag, string modelTag, int decalIndex, int objMatIndex) // changes the material of the selected model part
     {
-        var currDecalList = GetDecals(prefabTag, modelTag, objMatIndex);
+        var currDecalList = GetMaterialsOrDecals(prefabTag, modelTag, objMatIndex, false).Cast<TexturePairList>().ToList();
 
         var editedObjects = GameObject.FindGameObjectsWithTag(modelTag);
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -58,19 +59,9 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 
 	public void init_board() // when opening the app, load the default board
 	{
-		SetDeck(DeckDef);
-		SetWheels(WheelDef);
+		SetDeck(SharedTags.DefDeckPrefTag);
+		SetWheels(SharedTags.DefWheelPrefTag);
 	}
-
-	// TODO: Share tags between all scripts
-	private static readonly string[] WheelTags = new string[] { "axle_main", "axle_base", "bearing_cap", "wheel" };	// array of wheel tags
-	private static readonly string[] DeckTags = new string[] { "board" };	// array of wheel tags
-	private const string WheelDef = "wheel_def";
-	private const string WheelLong = "wheel_long";
-	private const string DeckDef = "deck_def";
-	private const string DeckLong = "deck_long";
-	private const string DeckRound = "deck_round";
-	private const string DeckOld = "deck_old";
 
 	public void SetWheels(string wheelType) { // function to set wheels
 		if (_currentLoadedWheels != null) { // if wheels already exist, destroy them
@@ -88,11 +79,11 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 
 		switch (wheelType)
 		{
-			case WheelDef:
+			case SharedTags.DefWheelPrefTag:
 				wheelPrefab = wheelPrefabs.defaultWheelPrefab;
 				uiManager.SetUIDefWheels(); // set world space UI position for deck ui to default wheels
 				break;
-			case WheelLong:
+			case SharedTags.LongWheelPrefTag:
 				wheelPrefab = wheelPrefabs.longboardWheelPrefab;
 				uiManager.SetUILargeWheels(); // set world space UI position for deck ui to longboard wheels
 				break;
@@ -126,7 +117,7 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 			reflectionProbe.RenderProbe();
 		}
 
-		LoadMaterial(_currentLoadedWheels[0].tag, WheelTags);
+		LoadMaterial(_currentLoadedWheels[0].tag);
 	}
 
 	public void SetDeck(string deckType)
@@ -142,19 +133,19 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 
 		switch (deckType)
 		{
-			case DeckDef:
+			case SharedTags.DefDeckPrefTag:
 				deckPrefab = deckPrefabs.classicDeckPrefab;
 				uiManager.SetUIDefDeck(); // set world space UI for wheels position to default deck
 				break;
-			case DeckLong:
+			case SharedTags.LongDeckPrefTag:
 				deckPrefab = deckPrefabs.longboardDeckPrefab;
 				uiManager.SetUILongDeck(); // set world space UI for wheels position to long deck
 				break;
-			case DeckRound:
+			case SharedTags.RoundDeckPrefTag:
 				deckPrefab = deckPrefabs.roundtailDeckPrefab;
 				uiManager.SetUILongDeck(); // set world space UI for wheels position to long deck
 				break;
-			case DeckOld:
+			case SharedTags.OldDeckPrefTag:
 				deckPrefab = deckPrefabs.oldschoolDeckPrefab;
 				uiManager.SetUIDefDeck(); // set world space UI for wheels position to default deck
 				break;
@@ -184,7 +175,7 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 			reflectionProbe.RenderProbe();
 		}
 
-		LoadMaterial(_currentLoadedDeck.tag, DeckTags);
+		LoadMaterial(_currentLoadedDeck.tag);
 	}
 
 	private void UpdateWheelAnchors() {
@@ -268,25 +259,23 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 		}
 	}
 
-	private void LoadMaterial(string currentPrefabTag, string[] currentModelTags)
+	private void LoadMaterial(string currentPrefabTag)
 	{
 		if (currentPrefabTag == null) return;
 
 		// this will throw an error on startup, because in the material switcher the Start() wasn't called yet -> tags the MaterialSwitcher uses are not yet initialized
-		var modelPartOptions = materialSwitcher.GiveModelPartsOptions(currentPrefabTag); // get model part options for wheels
+		var modelPartOptions = materialSwitcher.GiveModelPartsOptions(currentPrefabTag);
 
 		if (modelPartOptions == null) return;
 
 		// update material of modelTag) to match the selected material (if a material has already been selected)
-		foreach (var modelTag in currentModelTags) // iterate through each modelTag
+		foreach (var modelPart in modelPartOptions) // iterate through each modelTag
 		{
+			var modelTag = modelPart.modelTag;
+
 			int objMatIndex = 0;
 
-			// get material index
-			foreach (var modelPart in modelPartOptions)
-			{
-				if (modelTag == modelPart.modelTag)
-				{
+
 					objMatIndex = modelPart.partMatIndex;
 
 					// for every modelTag, check if a material has already been selected
@@ -304,16 +293,13 @@ public class ModelSwitcher : MonoBehaviour // class to switch models
 						StartCoroutine(ApplyDecalsAfterDelay(currentPrefabTag, modelTag, decalIndex, objMatIndex)); // decals need to be applied after a delay, otherwise they won't show up (materials are instantiated immediately, but not decals)
 						//materialSwitcher.ChangeDecal(_currentLoadedWheels[0].tag, wheelTag, decalIndex); // update decal of wheels (and bearings) to match the selected wheels
 					}
-				}
-			}
 		}
 	}
 
 	// TODO: find a better way to apply decals after a delay
 	IEnumerator ApplyDecalsAfterDelay(string prefabTag, string modelTag, int decalIndex, int objMatIndex)
 	{
-		yield return new WaitForEndOfFrame();
-		//yield return new WaitForSeconds(10f);
+		yield return new WaitForEndOfFrame(); // wait until the end of the frame to apply decals
 		materialSwitcher.ChangeDecal(prefabTag, modelTag, decalIndex, objMatIndex);
 	}
 }
